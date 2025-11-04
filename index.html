@@ -4,141 +4,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LET -- HOME</title>
     <meta name="description"
-        content="LET Innovations - Buy electronic components, IoT devices, Arduino, ESP32, Raspberry Pi, GSM modules, GPS sensors, LiPo batteries, and smart gadgets like smartwatches, iPhones, air conditioners, irons, fans, and more. We specialize in embedded systems, automation, and software solutions.">
+        content="LET Innovations - Premium electronics components, IoT devices, Arduino, ESP32, Raspberry Pi, sensors, and embedded systems. Expert tech solutions for hardware, software development, IoT automation, AI/ML, and solar systems in Nigeria.">
     <meta name="keywords"
-        content="LET Innovations, electronics components, Arduino, ESP32, Raspberry Pi, GSM module, GPS module, SIM800L, ultrasonic sensor, drone battery, LiPo battery, DC motor, servo motor, sensors, smart devices, smartwatch, smart home, Apple iPhone, Samsung Galaxy, air conditioner, electric iron, ceiling fan, inverter, solar system, IoT devices, embedded systems, microcontroller, PCB design, IoT automation, electronics store, buy sensors online, hardware lab, 3D printer, LED, resistor, capacitor, transistor, relay module, breadboard, jumper wires, Arduino Uno, Arduino Nano, ESP8266, Raspberry Pi Pico, NodeMCU, soldering iron, digital multimeter, AI development, machine learning, HADSOD Technology, LETI, co-working lab, phone repair, web app development, software engineering, inverter installation, solar power systems, electronics repair, smart electronics Nigeria.">
-    <link rel="stylesheet" href="akolo.css">
+        content="LET Innovations, electronics, Arduino, ESP32, Raspberry Pi, IoT, embedded systems, sensors, smartwatch, electronics repair, software development, AI/ML, solar systems, Nigeria">
+    <meta name="author" content="LET Innovations">
+    <meta name="theme-color" content="#6b4b9f">
+    <!-- Added Open Graph and Twitter Card meta tags for better social sharing -->
+    <meta property="og:title" content="LET Innovations - Electronics & IoT Solutions">
+    <meta property="og:description"
+        content="Professional electronics, IoT devices, and embedded systems solutions. Shop premium components and expert services.">
+    <meta property="og:image" content="img/let_logo.png">
+    <meta property="og:type" content="business.business">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="LET Innovations - Electronics & IoT Solutions">
+    <meta name="twitter:description" content="Professional electronics and IoT solutions">
+    <!-- Added canonical URL for SEO -->
+    <link rel="canonical" href="https://letinnovations.com">
+    <title>LET Innovations - Electronics, IoT & Embedded Systems Solutions</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
+    <!-- Splash Screen -->
     <div id="splash-screen">
         <h1 class="splash-text">LET INNOVATION</h1>
         <div class="splash-loading">HADSOD TECHNOLOGY...</div>
     </div>
 
+    <!-- Header -->
     <header>
-        <ul class="ulb0">
-            <li>
-                <p>EMAIL: <a href="mailto:letinnovation69@gmail.com" class="linktoemail">letinnovation69@gmail.com</a>
-                </p>
-            </li>
-            <li>
-                <p>TEL: <a href="tel:+2348100428881" class="linktotel1">+2348100428881</a>, <a href="tel:+2348088765350"
-                        class="linktotel2">+2348088765350</a></p>
-            </li>
-        </ul>
-        <nav>
-            <img src="img/let_symbol.png" alt="let_symbol" id="letsymbol">
-            <img src="img/let_logo.png" alt="let_logo" id="letlogo">
-            <form action="">
-                <input type="text" name="search" id="search" placeholder="Search your favorite products..."
-                    title="Click to search">
-                <button type="submit" for="search">SEARCH</button>
-            </form>
-            <ul>
-                <li><a href="HOME.html">HOME</a></li>
-                <li><a href="#">WISHLIST</a></li>
-                <li><a href="#">CART</a></li>
-                <li><a href="#">SIGN UP</a></li>
-                <li><a href="#">SIGN IN</a></li>
+        <div class="header-top">
+            <ul class="contact-info">
+                <li>
+                    <a href="mailto:letinnovation69@gmail.com">📧 letinnovation69@gmail.com</a>
+                </li>
+                <li>
+                    <a href="tel:+2348100428881">📞 +2348100428881</a>
+                </li>
             </ul>
+        </div>
+
+        <nav class="navbar">
+            <div class="logo-section">
+                <img src="img/let_symbol.png" alt="LET Symbol" class="logo-symbol">
+                <img src="img/let_logo.png" alt="LET Logo" class="logo-text">
+            </div>
+
+            <form class="search-form" role="search">
+                <input type="search" name="search" id="search" placeholder="Search products..."
+                    title="Search your favorite products">
+                <button type="submit" aria-label="Search">SEARCH</button>
+            </form>
+
+            <ul class="nav-links">
+                <li><a href="#home">HOME</a></li>
+                <li><a href="#wishlist">WISHLIST</a></li>
+                <li><a href="#cart">CART</a></li>
+                <li><a href="#signup">SIGN UP</a></li>
+                <li><a href="#signin">SIGN IN</a></li>
+            </ul>
+
+            <button class="mobile-menu-toggle" aria-label="Toggle menu">☰</button>
         </nav>
     </header>
 
-    <section>
-        <h1 class="hello">POPULAR HARDWARE PRODUCTS</h1>
-        <div class="section">
-            <div class="product-grid"></div>
-        </div>
+    <!-- Main Section -->
+    <main>
+        <!-- Products Section -->
+        <section class="products-section">
+            <h1 class="section-title">Popular Hardware Products</h1>
+            <div class="products-container">
+                <div class="product-grid"></div>
+            </div>
+        </section>
 
-        <ul class="ulb1">
-            <h2>LETI -- PROFESSIONAL SERVICES</h2>
-            <li><a href="#">SOFTWARE DEVELOPMENT (WEB, APP)</a></li>
-            <li><a href="#">EMBEDDED SYSTEMS - IOT & AUTOMATION</a></li>
-            <li><a href="#">PHONES AND SYSTEMS REPAIR</a></li>
-            <li><a href="#">ARTIFICIAL INTELLIGENCE - MACHINE LEARNING DEVELOPMENT</a></li>
-            <li><a href="#">SOLAR AND INVERTER SYSTEMS DESIGN & INSTALLATION</a></li>
-            <li><a href="#">CO-WORKING LAB - EXCLUSIVE WORKSPACE</a></li>
-            <li><a href="#">SALES OF ELECTRONIC COMPONENTS</a></li>
-            <li><a href="#">COMPUTER CAFE SERVICES (PRINTING, PHOTOCOPY, ETC)</a></li>
-            <li><a href="#">OTHER SERVICES</a></li>
-        </ul>
-    </section>
-
-    <footer>
-        <div class="divfot1">
-            <ul>
-                <li>
-                    <p class="hel1">SUBSCRIBE TO OUR NEWSLETTERS</p>
-                </li>
-                <li>
-                    <p class="hel2">→ Get email updates about our latest <span>Discount Offers</span> and new products
-                    </p>
-                </li>
+        <!-- Services Section -->
+        <section class="services-section">
+            <h2>LETI Professional Services</h2>
+            <ul class="services-grid">
+                <li><a href="#service1">Software Development (Web, App)</a></li>
+                <li><a href="#service2">Embedded Systems - IoT & Automation</a></li>
+                <li><a href="#service3">Phones and Systems Repair</a></li>
+                <li><a href="#service4">Artificial Intelligence - Machine Learning</a></li>
+                <li><a href="#service5">Solar and Inverter Systems Design</a></li>
+                <li><a href="#service6">Co-Working Lab - Exclusive Workspace</a></li>
+                <li><a href="#service7">Sales of Electronic Components</a></li>
+                <li><a href="#service8">Computer Cafe Services</a></li>
+                <li><a href="#service9">Other Services</a></li>
             </ul>
-            <form action="" class="form1">
-                <input type="email" name="subscribe" id="search0" placeholder="example@123" title="Enter your email">
-                <button type="submit" for="search0">SUBSCRIBE</button>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact-section">
+            <h2>Contact LET Innovations</h2>
+            <p>Have questions? Drop your message below — we'll reply soon!</p>
+
+            <form id="contact-form" class="contact-form">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" placeholder="Your full name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Your email address" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message" rows="5" placeholder="Type your message..."
+                        required></textarea>
+                </div>
+
+                <div id="drop-zone" class="drop-zone">
+                    <p>Drag & Drop files here or click to upload</p>
+                    <input type="file" id="file-input" multiple style="display: none;">
+                </div>
+
+                <button type="submit" class="submit-btn">Send Message</button>
             </form>
+
+            <div id="contact-status" class="contact-status"></div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="newsletter-section">
+                <h3>Subscribe to Our Newsletters</h3>
+                <p>Get email updates about our latest discount offers and new products</p>
+                <form class="newsletter-form">
+                    <input type="email" name="subscribe" placeholder="example@email.com" required>
+                    <button type="submit">SUBSCRIBE</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 LET Innovations. All rights reserved.</p>
         </div>
     </footer>
 
-    <!-- ✅ Contact Form Section -->
-    <section id="contact-section" style="padding: 40px; background-color: #f9f9f9;">
-        <h2>Contact LET Innovations</h2>
-        <p>Have questions or need support? Drop your message below — we’ll reply soon!</p>
-
-        <form id="contact-form" class="contact-form">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" placeholder="Your full name" required>
-
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" placeholder="Your email address" required>
-
-            <label for="message">Message:</label>
-            <textarea id="message" name="message" rows="5" placeholder="Type your message..." required></textarea>
-
-            <div id="drop-zone" style="border: 2px dashed #aaa; padding: 20px; text-align: center; margin-top: 10px;">
-                Drag & Drop files here or click to upload
-                <input type="file" id="file-input" multiple style="display: none;">
-            </div>
-
-            <button type="submit" style="margin-top: 15px;">Send Message</button>
-        </form>
-
-        <div id="contact-status"></div>
-    </section>
-
-    <script>
-        // Drag-and-drop handling
-        const dropZone = document.getElementById('drop-zone');
-        const fileInput = document.getElementById('file-input');
-
-        dropZone.addEventListener('click', () => fileInput.click());
-        dropZone.addEventListener('dragover', e => {
-            e.preventDefault();
-            dropZone.style.backgroundColor = '#e0f7fa';
-        });
-        dropZone.addEventListener('dragleave', () => {
-            dropZone.style.backgroundColor = '';
-        });
-        dropZone.addEventListener('drop', e => {
-            e.preventDefault();
-            dropZone.style.backgroundColor = '';
-            const files = Array.from(e.dataTransfer.files);
-            alert(files.length + " file(s) selected!");
-        });
-
-        // Form submission simulation
-        document.getElementById('contact-form').addEventListener('submit', e => {
-            e.preventDefault();
-            document.getElementById('contact-status').innerText = "Message sent successfully! ✅";
-        });
-    </script>
-
-    <script src="unified.js"></script>
+    <!-- Scripts -->
+    <script src="app.js"></script>
 </body>
 
 </html>
