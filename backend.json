@@ -1,0 +1,14 @@
+[
+  {
+    "name": "RASPBERRY PI",
+    "price": 3200.00,
+    "discount": 10,
+    "url": "https://letinnovations.store/?i=pi"
+  },
+  {
+    "name": "ULTRASONIC SENSOR",
+    "price": 5000.00,
+    "discount": 10,
+    "url": "https://letinnovations.store/?i=sensor"
+  },
+]

@@ -1,0 +1,395 @@
+#splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(107, 75, 159); /* Main theme color */
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 1s ease-out, visibility 1s;
+    opacity: 1;
+    visibility: visible;
+}
+.splash-text {
+    color: white;
+    font-size: 3em;
+    font-family: cursive;
+    margin-bottom: 20px;
+    animation: pulse 1.5s infinite alternate;
+}
+.splash-loading {
+    color: white;
+    font-size: 1.5em;
+    font-family: cursive;
+}
+.fade-out {
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+@keyframes pulse {
+    0% { transform: scale(1); text-shadow: 0 0 5px white; }
+    100% { transform: scale(1.05); text-shadow: 0 0 15px white; }
+}
+body {
+    background-color: white;
+    font-family: cursive;
+    position: absolute;
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+}
+header {
+    background-color: rgb(107, 75, 159);
+    margin-top: -17px;
+    height: 110px;
+    padding: 20px;
+    margin-bottom: 100px;
+}
+header .ulb0 {
+    margin-left: 600px;
+}
+header .ulb0 li {
+    display: inline-block;
+    padding: 0px 10px;
+}
+header .ulb0 li p {
+    color: white;
+    border-radius: 20px;
+    padding: 7px;
+}
+header .ulb0 li p a {
+    text-decoration: none;
+    color: white;
+}
+header .ulb0 li p a:hover {
+    color: grey;
+}
+header nav {
+    border: 3px solid rgb(107, 75, 159);
+    border-radius: 20px;
+    margin-top: -20px;
+    background-color: white;
+    padding: 15px;
+    height: fit-content;
+    display: flex;
+}
+header nav #letsymbol {
+    width: 100px;
+    height: 100px;
+}
+header nav #letlogo {
+    width: 200px;
+    height: 40px;
+    margin-left: 10px;
+    margin-top: 35px;
+    margin-right: 10px;
+}
+header nav form {
+    margin-top: 35px;
+}
+header nav form input {
+    font-size: 15px;
+    padding: 10px;
+    width: 250px;
+    border: 2px solid rgb(107, 75, 159);
+    color: rgb(107, 75, 159);
+    font-weight: bold;
+    text-align: center;
+    padding-top: 8px;
+    padding-bottom: 10px;   
+}
+header nav form input::placeholder {
+    color: grey;
+}
+header nav form > button {
+    text-decoration: none;
+    color: white;
+    background-color: rgb(107, 75, 159);
+    font-weight: bold;
+    padding: 10px;
+    margin-left: -7px;
+    border: 2px solid rgb(107, 75, 159);
+}
+header nav form button:hover {
+    color: rgb(107, 75, 159);
+    background-color: white;
+    border-color: rgb(107, 75, 159);
+}
+header nav > ul {
+    margin-top: 42px;
+}
+header nav > ul li {
+    display: inline;
+    padding: 10px;
+}
+header nav > ul li a {
+    text-decoration: none;
+    border-radius: 10px;
+    color: white;
+    background-color: rgb(107, 75, 159);
+    padding: 6px;
+    font-weight: 700;
+    border: 2px solid rgb(107, 75, 159)
+}
+header nav > ul li a:hover {
+    color: rgb(107, 75, 159);
+    background-color: white;
+}
+section {
+    height: fit-content;
+    border: 3px solid rgb(107, 75, 159);
+    background-color: rgb(107, 75, 159);
+    padding: 10px;
+    margin: 20px;
+    border-radius: 20px;
+}
+
+section > .ulb1 {
+    text-align: center;
+    border: 2px solid white;    
+    border-radius: 20px;
+    height:350px;
+}
+section > .ulb1 > h2 {
+    justify-self: center;
+    color: white;
+    font-size: 30px;
+    margin-top: 10px;
+}
+section > ul li {
+    margin-top: 20px;
+    display: inline-block;
+    padding: 5px;
+}
+section > .ulb1 li a {
+    font-size: 15px;
+    text-decoration: none;
+    border: 2px solid;
+    color: rgb(107, 75, 159);
+    background-color: white;
+    padding: 10px;
+    font-weight: bold;
+    border-radius: 14px;
+}
+section > .ulb1 li a:hover {
+    color: white;
+    background-color: rgb(107, 75, 159);
+}
+section > .hello {
+    color: white;
+    font-size: 30px;
+    margin-top: 20px;
+    justify-self: center;
+}
+section .section {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 20px;
+}
+section .section .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 400px));
+    gap: 5px;
+    justify-content: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+section .section .product-grid .boxes {
+    margin: 10px 10px 0px 10px;
+    border-radius: 20px;
+    border: 3px solid white;
+    padding: 10px;
+    background-size: cover;
+    background-color: white;
+}
+section .section .product-grid .boxes .par1 {
+    background-color: rgb(107, 75, 159);
+    color: white;
+    padding: 5px;
+    font-size: 13px;
+    border: 2px solid rgb(107, 75, 159);
+    border-radius: 20px;
+    width: fit-content;
+    font-weight: bold;
+    margin: 1px;
+}
+section .section .product-grid .boxes .imgsrc {
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+section .section .product-grid .boxes > h1 {
+    color: rgb(107, 75, 159);
+    font-size: 20px;
+    margin: 1px;
+    text-transform: uppercase;
+}
+section .section .product-grid .boxes > h2 {
+    margin: 1px;
+    color: grey;
+    font-size: 15px;
+}
+section .section .product-grid .boxes:hover > h2 {
+    color: white;
+}
+section .section .product-grid .boxes .par2 {
+    margin: 1px;
+    font-size: 10px;
+    display: inline-block;
+    color: rgb(107, 75, 159);
+}
+section .section .product-grid .boxes .par2 > .discount {
+    color: red;
+    font-weight: bold;
+    font-size: 15px;    
+}
+section .section .product-grid .boxes .par3 {    
+    color: rgb(107, 75, 159);
+    display: block;
+    font-size: 15px;
+}
+section .section .product-grid .boxes .par3 > .price {
+    color: rgb(107, 75, 159);
+    font-weight: bold;
+    font-size: 20px;
+}
+section .section .product-grid .boxes > .sub {
+    margin: 1px;   
+    text-decoration: none;
+    border: 2px solid rgb(107, 75, 159);
+    background-color: rgb(107, 75, 159);
+    color: white;
+    padding: 5px;
+    font-size: 13px;
+    font-weight: bold;
+    border-radius: 15px;
+}
+section .section .product-grid .boxes:hover {
+    background-color: rgb(107, 75, 159);
+}
+section .section .product-grid .boxes:hover > .par1 {
+    color: rgb(107, 75, 159);
+    background-color: white; 
+}
+section .section .product-grid .boxes:hover > .par2 {
+    color: white;
+}
+section .section .product-grid .boxes:hover > .par2 > .discount {
+    color: white;
+}
+section .section .product-grid .boxes:hover > .par3 {
+    color: white;
+}
+section .section  .product-grid .boxes:hover > .par3 > .price {
+    color: white;
+}
+section .section .product-grid .boxes:hover > .sub {
+    background-color: white;
+    color: rgb(107, 75, 159);
+}
+section .section .product-grid .boxes:hover > .sub:hover {
+    color: white;
+    background-color: rgb(107, 75, 159);
+    border-color: white;
+}
+section .section .product-grid .boxes:hover > h1 {
+    color: white;
+}
+footer {
+    border: 3px solid rgb(107, 75, 159);
+    border-top-right-radius: 30px;
+    border-top-left-radius: 30px;
+    padding: 20px;
+    border-bottom-width: 10px;
+}
+footer .divfot1 ul {
+    text-align: center;
+}
+footer .divfot1 ul li {
+    display: inline;
+}
+footer .divfot1 ul li .hel1 {   
+    color: rgb(107, 75, 159);
+    display: inherit;
+}
+footer .divfot1 ul li .hel2 {
+    display: inherit;
+    color: darkgoldenrod;
+}
+footer .divfot1 > .form1 {
+    text-align: center;
+}
+footer .divfot1 > .form1 input {
+    border: 2px solid rgb(107, 75, 159);
+    padding: 10px;  
+    width: 300px;
+    text-align: center;
+    color: rgb(107, 75, 159);
+    font-weight: bold;
+    font-size: 20px;
+    padding-top: 6px;
+    margin-right: -10px;
+}
+footer .divfot1 > .form1 input::placeholder {
+    font-size: 15px;
+    color: lightgrey;
+}
+footer .divfot1 > .form1 button {
+    background-color: white;
+    color: rgb(107, 75, 159);
+    border: 2px solid;
+    padding: 12px;
+    font-weight: bold;
+}
+footer .divfot1 > .form1 button:hover {
+    color: white;
+    background-color: rgb(107, 75, 159);
+    border-color: rgb(107, 75, 159);
+}
+
+/*styling for the signup page for letinnovation enterprise software*/
+.sec1 {
+    padding: 20px;
+}
+.sec1 .secbox1 {
+    text-align: center;
+    width: 500px;
+    justify-self: center;
+    border: 3px solid white;
+    border-radius: 20px;
+    padding: 20px;
+
+}
+.sec1 .secbox1 h2 {
+    color: white;
+}
+hr {
+    border-color: gray;
+}
+.sec1 .secbox1 form {
+    display: inline;
+}
+.sec1 .secbox1 form input {
+    display: inherit;
+    border: 2px solid white;
+    background-color: rgb(107, 75, 159);
+    border-radius: 20px;
+    padding: 15px;
+    margin-bottom: 10px;
+    width: 200px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+}
+.sec1 .secbox1 form input::placeholder {
+    color: lightgray;
+    font-weight: lighter;
+}
+.sec1 .secbox1 form #submit:hover {
+    background-color: white;
+    color: rgb(107, 75, 159);
+}
