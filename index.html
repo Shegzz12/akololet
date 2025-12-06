@@ -391,6 +391,15 @@
             
             // Add loaded class to body
             document.body.classList.add('flutter-loaded');
+            // In your main HTML file, when switching to Flutter:
+
+            // Clean up landing page resources first
+            if (window.cleanupLandingPageResources) {
+                window.cleanupLandingPageResources();
+            }
+    
+    
+        }
             
             // Force Flutter container to be visible
             const flutterContainer = document.getElementById('flutter-container');
@@ -457,3 +466,4 @@
     </script>
 </body>
 </html>
+
