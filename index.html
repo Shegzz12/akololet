@@ -1,176 +1,595 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="LET Innovations - let innovation, Premium electronics components, IoT devices, Arduino, ESP32, Raspberry Pi, sensors, and embedded systems. Expert tech solutions for hardware, software development, IoT automation, AI/ML, and solar systems in Minna, Nigeria.">
-  <meta name="keywords" content="LET Innovations, electronics components, Arduino, ESP32, Raspberry Pi, sensors, computers, iPhones, smartphones, gadgets, IoT, embedded systems, AI, solar systems, Nigeria">
-  <meta name="author" content="LET Innovations">
-  <meta name="theme-color" content="#6b4b9f">
-  <link rel="canonical" href="https://letinnovations.store">
-  <title>LET Innovations - Electronics, IoT & Embedded Systems Solutions</title>
-  <link rel="stylesheet" href="letinnovation.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="LET Innovations - let innovation, Premium electronics components, IoT devices, Arduino, ESP32, Raspberry Pi, sensors, and embedded systems. Expert tech solutions for hardware, software development, IoT automation, AI/ML, and solar systems in Minna, Nigeria.">
+    <meta name="keywords"
+        content="LET Innovations, let innovation, drone, gps module, ultrasonic sensor, electronics, Arduino, ESP32, Raspberry Pi, IoT, embedded systems, sensors, smartwatch, electronics repair, software development, AI/ML, solar systems, Nigeria">
+    <meta name="author" content="LET Innovations">
+    <meta name="theme-color" content="#6b4b9f">
+    <meta property="og:title" content="LET Innovations - Electronics & IoT Solutions">
+    <meta property="og:description"
+        content="Professional electronics, IoT devices, and embedded systems solutions. AI-driven tech for smarter living. Shop premium components and expert services.">
+    <meta property="og:image" content="img/let_logo.png">
+    <meta property="og:type" content="business.business">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="LET Innovations - Electronics & IoT Solutions">
+    <meta name="twitter:description" content="Professional electronics and IoT solutions">
+    <link rel="canonical" href="https://letinnovations.store">
+    <title>LET Innovations - Electronics, IoT & Embedded Systems Solutions</title>
+    
+    <!-- Light Mode Styles -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  <!-- Fade effect -->
-  <style>
-    #landing-wrapper {
-      transition: opacity 1s ease;
-    }
-    .fade-out {
-      opacity: 0;
-    }
-    #flutter-container {
-      opacity: 0;
-      transition: opacity 1s ease;
-    }
-    #flutter-container.visible {
-      opacity: 1;
-    }
-    body, html {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      width: 100%;
-    }
-  </style>
+        body {
+            background-color: #ffffff;
+            color: #1a1a1a;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: opacity 0.3s ease;
+        }
+
+        /* Landing Page Container */
+        #landing-page-container {
+            opacity: 1;
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        #landing-page-container.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Flutter Container */
+        #flutter-container {
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+            pointer-events: none;
+        }
+
+        #flutter-container.fade-in {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Header */
+        header {
+            background-color: #f8f8f8;
+            padding: 12px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .header-top {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .contact-info {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .contact-info a {
+            color: #333333;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .contact-info a:hover {
+            color: #6b4b9f;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #ffffff;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            border-bottom: 1px solid #e0e0e0;
+            flex-wrap: wrap;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-symbol, .logo-text {
+            max-height: 50px;
+            width: auto;
+        }
+
+        .search-form {
+            display: flex;
+            gap: 8px;
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .search-form input {
+            flex: 1;
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #ffffff;
+            color: #333;
+        }
+
+        .search-form button {
+            padding: 10px 20px;
+            background-color: #6b4b9f;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .search-form button:hover {
+            background-color: #553a7d;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: #333333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #6b4b9f;
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #333;
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            color: #1a1a1a;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .products-container {
+            margin-bottom: 50px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .product-item {
+            background: #f8f8f8;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .product-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        /* Services Section */
+        .services-section {
+            background-color: #f8f8f8;
+            padding: 40px 20px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+        }
+
+        .services-section h2 {
+            font-size: 24px;
+            color: #1a1a1a;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .services-grid {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .services-grid a {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #333333;
+            border: 1px solid #e0e0e0;
+            transition: all 0.3s;
+        }
+
+        .services-grid a:hover {
+            background-color: #6b4b9f;
+            color: white;
+            border-color: #6b4b9f;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            margin-bottom: 50px;
+        }
+
+        .contact-section h2 {
+            font-size: 24px;
+            color: #1a1a1a;
+            margin-bottom: 15px;
+        }
+
+        .contact-form {
+            background-color: #f8f8f8;
+            padding: 30px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333333;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #ffffff;
+            color: #333;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #6b4b9f;
+            box-shadow: 0 0 0 2px rgba(107, 75, 159, 0.1);
+        }
+
+        .drop-zone {
+            border: 2px dashed #6b4b9f;
+            padding: 30px;
+            text-align: center;
+            border-radius: 8px;
+            cursor: pointer;
+            background-color: #ffffff;
+            margin-bottom: 20px;
+            transition: background-color 0.3s;
+        }
+
+        .drop-zone:hover {
+            background-color: #f0f0f0;
+        }
+
+        .submit-btn {
+            background-color: #6b4b9f;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: #553a7d;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            padding: 40px 20px;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            margin-bottom: 30px;
+        }
+
+        .newsletter-section h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            color: #333;
+        }
+
+        .newsletter-form button {
+            padding: 12px 25px;
+            background-color: #6b4b9f;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .newsletter-form button:hover {
+            background-color: #553a7d;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            color: #aaa;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .search-form {
+                min-width: 100%;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+        }
+    </style>
+
+    <link rel="stylesheet" href="letinnovation.css">
 </head>
-<body>
 
-  <!-- Landing Page Wrapper -->
-  <div id="landing-wrapper">
-    <div id="redirect-message">
-        <p>Redirecting to main website...</p>
-        <div class="spinner"></div>
+<body>
+    <!-- Landing Page Container -->
+    <div id="landing-page-container">
+        <div id="redirect-message">
+            <p>Redirecting to main website...</p>
+            <div class="spinner"></div>
+        </div>
+
+        <div class="oldpage" id="oldpage" style="display: none;">
+            <div class="sustain">
+                <div class="newpage" id="newpage"></div>
+                <div class="notagain">
+                    <button class="hely" onclick="closeReviewPage()" aria-label="Close product details modal">&times;</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="biggestbox" style="display: none;" id="biggestbox">
+            <div class="containerbox">
+                <div id="product-modal" class="row11"></div>
+                <div class="row22">
+                    <div class="letinnovation">
+                        <h2 class="section-heading">Product Description</h2><hr>
+                        <p class="product-description" id="product-description"></p>
+                    </div>
+                    <div class="letinnovation2">
+                        <h2>Product Reviews</h2><hr>
+                        <div class="product-review" id="product-review"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="splash-screen">
+            <h1 class="splash-text">LET INNOVATIONS</h1>
+            <div class="splash-loading">innovation beyond the box...</div>
+        </div>
+
+        <header>
+            <div class="header-top">
+                <ul class="contact-info">
+                    <li><a href="mailto:letinnovation69@gmail.com">📧 letinnovation69@gmail.com</a></li>
+                    <li><a href="tel:+2348100428881">📞 +2348100428881 (Whatsapp)</a></li>
+                </ul>
+            </div>
+        </header>
+
+        <nav class="navbar">
+            <div class="logo-section">
+                <img src="img/let_symbol.png" alt="LET Symbol" class="logo-symbol">
+                <img src="img/let_logo.png" alt="LET Logo" class="logo-text">
+            </div>
+
+            <form class="search-form" role="search">
+                <input type="search" name="search" id="search" placeholder="Search products..." title="Search your favorite products">
+                <button type="submit" aria-label="Search">SEARCH</button>
+            </form>
+
+            <ul class="nav-links">
+                <li><a href="akolo.html">HOME</a></li>
+                <li><a href="https://letinnovations.store/">LOGIN</a></li>
+            </ul>
+            <button class="mobile-menu-toggle" aria-label="Toggle menu">☰</button>
+        </nav>
+
+        <main>
+            <section class="products-section">
+                <div class="products-container">
+                    <h1 class="section-title">POPULAR HARDWARE PRODUCTS</h1>
+                    <div class="product-grid" id="product-grid"></div>
+                </div>
+            </section>
+
+            <section class="services-section">
+                <h2>LETI Professional Services</h2>
+                <ul class="services-grid">
+                    <li><a href="https://letinnovations.store">Software Development (Web, App)</a></li>
+                    <li><a href="https://letinnovations.store">Embedded Systems - IoT & Automation</a></li>
+                    <li><a href="https://letinnovations.store">Phones and Systems Repair</a></li>
+                    <li><a href="https://letinnovations.store">Artificial Intelligence - Machine Learning</a></li>
+                    <li><a href="https://letinnovations.store">Solar and Inverter Systems Design</a></li>
+                    <li><a href="https://letinnovations.store">Co-Working Lab - Exclusive Workspace</a></li>
+                    <li><a href="https://letinnovations.store">Sales of Electronic Components</a></li>
+                    <li><a href="https://letinnovations.store">Computer Cafe Services</a></li>
+                    <li><a href="https://letinnovations.store">Other Services</a></li>
+                </ul>
+            </section>
+
+            <section class="contact-section">
+                <h2>Contact LET Innovations</h2>
+                <p>Have questions? Drop your message below — we'll reply soon!</p>
+
+                <form id="contact-form" class="contact-form">
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name" placeholder="Your full name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" placeholder="Your email address" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Message:</label>
+                        <textarea id="message" name="message" rows="5" placeholder="Type your message..." required></textarea>
+                    </div>
+
+                    <div id="drop-zone" class="drop-zone">
+                        <p>Drag & Drop files here or click to upload</p>
+                        <input type="file" id="file-input" multiple style="display: none;">
+                    </div>
+
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+
+                <div id="contact-status" class="contact-status"></div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <div class="newsletter-section">
+                    <h3>Subscribe to Our Newsletters</h3>
+                    <p>Get email updates about our latest discount offers and new products</p>
+                    <form class="newsletter-form">
+                        <input type="email" name="subscribe" placeholder="example@email.com" required>
+                        <button type="submit">SUBSCRIBE</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 LET Innovations. All rights reserved.</p>
+            </div>
+        </footer>
+
+        <script src="letinnovation.js"></script>
     </div>
 
-    <header>
-      <div class="header-top">
-        <ul class="contact-info">
-          <li><a href="mailto:letinnovation69@gmail.com">📧 letinnovation69@gmail.com</a></li>
-          <li><a href="tel:+2348100428881">📞 +2348100428881 (Whatsapp)</a></li>
-        </ul>
-      </div>
-    </header>
+    <!-- Flutter Container - Hidden Initially -->
+    <div id="flutter-container">
+        <script src="flutter_bootstrap.js" async></script>
+    </div>
 
-    <nav class="navbar">
-      <div class="logo-section">
-        <img src="img/let_symbol.png" alt="LET Symbol" class="logo-symbol">
-        <img src="img/let_logo.png" alt="LET Logo" class="logo-text">
-      </div>
+    <!-- Transition Script -->
+    <script>
+        // Monitor Flutter app readiness and fade transition
+        function initializeFlutterTransition() {
+            // Check if Flutter has initialized
+            const checkFlutterReady = setInterval(() => {
+                // Flutter sets window.flutterWebLoader and window.flutter when loaded
+                if (window.flutter && window.flutter.isReady) {
+                    clearInterval(checkFlutterReady);
+                    transitionToFlutter();
+                }
+            }, 100);
 
-      <form class="search-form" role="search">
-        <input type="search" name="search" id="search" placeholder="Search products..." title="Search your favorite products">
-        <button type="submit" aria-label="Search">SEARCH</button>
-      </form>
-      <ul class="nav-links">
-        <li><a href="akolo.html">HOME</a></li>
-        <li><a href="https://letinnovations.store/">LOGIN</a></li>
-      </ul>
-      <button class="mobile-menu-toggle" aria-label="Toggle menu">☰</button>
-    </nav>
+            // Timeout safety: transition after 30 seconds regardless
+            setTimeout(() => {
+                clearInterval(checkFlutterReady);
+                if (window.flutter) {
+                    transitionToFlutter();
+                }
+            }, 30000);
+        }
 
-    <main>
-      <section class="products-section">
-        <div class="products-container">
-          <h1 class="section-title">POPULAR HARDWARE PRODUCTS</h1>
-          <div class="product-grid" id="product-grid"></div>
-        </div>
-      </section>
+        function transitionToFlutter() {
+            const landingContainer = document.getElementById('landing-page-container');
+            const flutterContainer = document.getElementById('flutter-container');
 
-      <section class="services-section">
-        <h2>LETI Professional Services</h2>
-        <ul class="services-grid">
-          <li><a href="https://letinnovations.store">Software Development (Web, App)</a></li>
-          <li><a href="https://letinnovations.store">Embedded Systems - IoT & Automation</a></li>
-          <li><a href="https://letinnovations.store">Phones and Systems Repair</a></li>
-          <li><a href="https://letinnovations.store">Artificial Intelligence - Machine Learning</a></li>
-          <li><a href="https://letinnovations.store">Solar and Inverter Systems Design</a></li>
-          <li><a href="https://letinnovations.store">Co-Working Lab - Exclusive Workspace</a></li>
-          <li><a href="https://letinnovations.store">Sales of Electronic Components</a></li>
-          <li><a href="https://letinnovations.store">Computer Cafe Services</a></li>
-          <li><a href="https://letinnovations.store">Other Services</a></li>
-        </ul>
-      </section>
+            // Start fade out of landing page and fade in of Flutter
+            landingContainer.classList.add('fade-out');
+            flutterContainer.classList.add('fade-in');
 
-      <section class="contact-section">
-        <h2>Contact LET Innovations</h2>
-        <p>Have questions? Drop your message below — we'll reply soon!</p>
-        <form id="contact-form" class="contact-form">
-          <div class="form-group">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" placeholder="Your full name" required>
-          </div>
-          <div class="form-group">
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" placeholder="Your email address" required>
-          </div>
-          <div class="form-group">
-            <label for="message">Message:</label>
-            <textarea id="message" name="message" rows="5" placeholder="Type your message..." required></textarea>
-          </div>
-          <div id="drop-zone" class="drop-zone">
-            <p>Drag & Drop files here or click to upload</p>
-            <input type="file" id="file-input" multiple style="display: none;">
-          </div>
-          <button type="submit" class="submit-btn">Send Message</button>
-        </form>
-        <div id="contact-status" class="contact-status"></div>
-      </section>
-    </main>
+            // Completely remove landing page from DOM after transition
+            setTimeout(() => {
+                landingContainer.style.display = 'none';
+            }, 800);
+        }
 
-    <footer>
-      <div class="footer-content">
-        <div class="newsletter-section">
-          <h3>Subscribe to Our Newsletters</h3>
-          <p>Get email updates about our latest discount offers and new products</p>
-          <form class="newsletter-form">
-            <input type="email" name="subscribe" placeholder="example@email.com" required>
-            <button type="submit">SUBSCRIBE</button>
-          </form>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>&copy; 2025 LET Innovations. All rights reserved.</p>
-      </div>
-    </footer>
-  </div>
-
-  <!-- Flutter Web Container -->
-  <div id="flutter-container"></div>
-
-  <!-- Load Flutter Web and fade in -->
-  <script>
-    var flutterScript = document.createElement('script');
-    flutterScript.src = "flutter_bootstrap.js";
-    flutterScript.async = true;
-
-    flutterScript.onload = function() {
-      if (window._flutter) {
-        window._flutter.loader.loadEntrypoint({
-          onEntrypointLoaded: function(engineInitializer) {
-            engineInitializer.initializeEngine().then(function(appRunner) {
-              // Fade out landing page
-              const landing = document.getElementById('landing-wrapper');
-              landing.classList.add('fade-out');
-
-              // Wait for fade-out transition
-              setTimeout(() => {
-                landing.remove();
-
-                // Run Flutter Web inside flutter-container
-                const container = document.getElementById('flutter-container');
-                container.classList.add('visible');
-                appRunner.runApp(container);
-              }, 1000);
-            });
-          }
-        });
-      }
-    };
-
-    document.body.appendChild(flutterScript);
-  </script>
-
-  <script src="letinnovation.js"></script>
+        // Start monitoring when page loads
+        window.addEventListener('DOMContentLoaded', initializeFlutterTransition);
+    </script>
 </body>
 </html>
