@@ -578,3 +578,11 @@ if (document.readyState === 'loading') {
     // DOM already loaded
     initLandingPage();
 }
+// Ensure this function exists for the main HTML to call
+if (!window.cleanupLandingPageResources) {
+    window.cleanupLandingPageResources = function() {
+        console.log('Cleaning up landing page resources...');
+        // Clear any intervals or timeouts
+        // The main cleanup is handled by the HTML removal
+    };
+}
