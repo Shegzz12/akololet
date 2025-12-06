@@ -19,7 +19,7 @@
     <meta name="twitter:description" content="Professional electronics and IoT solutions">
     <link rel="canonical" href="https://letinnovations.store">
     
-    <!-- Flutter Web setup (all in root) -->
+    <!-- Flutter Web setup -->
     <base href="/">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -35,23 +35,20 @@
     <link rel="stylesheet" href="letinnovation.css">
     
     <style>
-        /* Hide everything initially except splash */
-        body {
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-        }
-        
-        /* Landing page wrapper - visible initially */
-        #landing-page {
-            position: relative;
+        /* Landing page container - shown initially */
+        #landing-container {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            min-height: 100vh;
+            height: 100%;
+            overflow-y: auto;
             background: white;
-            z-index: 1;
+            z-index: 1000;
+            transition: opacity 0.5s ease;
         }
         
-        /* Splash screen - shown first */
+        /* Splash screen */
         #splash-screen {
             position: fixed;
             top: 0;
@@ -63,7 +60,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            z-index: 10000;
+            z-index: 1001;
             color: white;
             text-align: center;
             transition: opacity 0.5s ease;
@@ -87,22 +84,21 @@
             50% { opacity: 1; }
         }
         
-        /* Main landing content - hidden initially */
-        #landing-content {
-            display: none;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-        
-        /* Flutter container - hidden initially */
+        /* Flutter container - initially empty */
         #flutter-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 2;
-            display: none;
+            z-index: 1;
+        }
+        
+        /* Make sure Flutter canvas covers everything */
+        #flutter-container canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
         }
         
         /* Loading indicator */
@@ -115,39 +111,32 @@
             padding: 10px 15px;
             border-radius: 20px;
             font-size: 14px;
-            z-index: 10001;
+            z-index: 1002;
             display: none;
         }
         
-        /* Make sure Flutter canvas takes full space */
-        canvas {
-            width: 100%;
-            height: 100%;
-            display: block;
-        }
-        
-        /* Hide all landing page when Flutter is ready */
-        body.flutter-loaded #landing-page {
+        /* Hidden state */
+        .hidden {
             display: none !important;
         }
         
-        body.flutter-loaded #flutter-container {
-            display: block !important;
+        .fade-out {
+            opacity: 0;
         }
     </style>
 </head>
 
 <body>
-    <!-- Landing Page Content (visible first) -->
-    <div id="landing-page">
-        <!-- Splash Screen (shown immediately) -->
+    <!-- Landing Page Container (shown immediately) -->
+    <div id="landing-container">
+        <!-- Splash Screen -->
         <div id="splash-screen">
             <h1 class="splash-text">LET INNOVATIONS</h1>
             <div class="splash-loading">innovation beyond the box...</div>
         </div>
         
-        <!-- Main Landing Content (shown after splash) -->
-        <div id="landing-content">
+        <!-- Main Landing Content -->
+        <div id="landing-content" class="hidden">
             <div id="redirect-message">
                 <p>Redirecting to main website...</p>
                 <div class="spinner"></div>
@@ -286,8 +275,8 @@
         </div>
     </div>
     
-    <!-- Flutter Container (hidden initially) -->
-    <div id="flutter-container"></div>
+    <!-- Flutter Container (initially empty) -->
+    <div id="flutter-container" class="hidden"></div>
     
     <!-- Loading indicator -->
     <div id="loading-indicator">
@@ -297,7 +286,7 @@
     <!-- Your landing page JS -->
     <script src="letinnovation.js"></script>
     
-    <!-- Main script to handle everything -->
+    <!-- Main script to handle the transition -->
     <script>
         // Wait for DOM to be ready
         document.addEventListener('DOMContentLoaded', function() {
@@ -314,14 +303,14 @@
                 // After fade out, hide splash and show landing content
                 setTimeout(function() {
                     splash.style.display = 'none';
-                    landingContent.style.display = 'block';
+                    landingContent.classList.remove('hidden');
                     
                     // Fade in landing content
                     setTimeout(function() {
                         landingContent.style.opacity = '1';
                     }, 50);
                     
-                    // Start loading Flutter in the background
+                    // Start loading Flutter in the background immediately
                     loadFlutterApp();
                     
                 }, 500); // Wait for splash fade out
@@ -338,25 +327,29 @@
                 document.getElementById('loading-indicator').style.display = 'block';
             }, 3000);
             
-            // Check if Flutter bootstrap script exists
+            // Store original window.onerror to prevent Flutter errors from breaking our page
+            const originalOnError = window.onerror;
+            
+            // Listen for Flutter's events
+            window.addEventListener('flutter-first-frame', function() {
+                console.log('Flutter first frame rendered - app is ready!');
+                
+                // Hide loading indicator
+                clearTimeout(loadingTimeout);
+                document.getElementById('loading-indicator').style.display = 'none';
+                
+                // Wait a bit more for Flutter to fully initialize
+                setTimeout(() => {
+                    switchToFlutterApp();
+                }, 100);
+            });
+            
+            // Create and load Flutter bootstrap
             const flutterScript = document.createElement('script');
             flutterScript.src = 'flutter_bootstrap.js';
             
-            // Set up event listeners for Flutter loading
             flutterScript.onload = function() {
                 console.log('Flutter bootstrap loaded');
-                
-                // Listen for Flutter's first frame event
-                window.addEventListener('flutter-first-frame', function() {
-                    console.log('Flutter first frame rendered - app is ready!');
-                    
-                    // Hide loading indicator
-                    clearTimeout(loadingTimeout);
-                    document.getElementById('loading-indicator').style.display = 'none';
-                    
-                    // Switch to Flutter app
-                    switchToFlutterApp();
-                });
             };
             
             flutterScript.onerror = function() {
@@ -364,106 +357,99 @@
                 clearTimeout(loadingTimeout);
                 document.getElementById('loading-indicator').style.display = 'none';
                 
-                // If Flutter fails, just keep showing landing page
-                // Optionally show an error message
+                // If Flutter fails, keep showing landing page
                 const errorMsg = document.createElement('div');
                 errorMsg.style.cssText = 'position:fixed;bottom:20px;left:20px;background:red;color:white;padding:10px;border-radius:5px;z-index:10000;';
                 errorMsg.textContent = 'Flutter app failed to load. Showing website version.';
                 document.body.appendChild(errorMsg);
                 
-                // Remove error message after 5 seconds
                 setTimeout(() => errorMsg.remove(), 5000);
             };
             
-            // Add script to body to start loading
+            // Load Flutter bootstrap
             document.body.appendChild(flutterScript);
             
-            // Also try to load the main Flutter script
+            // Also load main Flutter script
             const mainScript = document.createElement('script');
             mainScript.src = 'main.dart.js';
             mainScript.async = true;
             document.body.appendChild(mainScript);
+            
+            // Also try to load service worker if exists
+            const serviceWorkerScript = document.createElement('script');
+            serviceWorkerScript.src = 'flutter_service_worker.js';
+            serviceWorkerScript.async = true;
+            document.body.appendChild(serviceWorkerScript);
         }
         
         // Function to switch from landing page to Flutter app
         function switchToFlutterApp() {
             console.log('Switching to Flutter app...');
             
-            // Add loaded class to body
-            document.body.classList.add('flutter-loaded');
-            // In your main HTML file, when switching to Flutter:
-
             // Clean up landing page resources first
             if (window.cleanupLandingPageResources) {
-                window.cleanupLandingPageResources();
-            }
-    
-    
-        }
-            
-            // Force Flutter container to be visible
-            const flutterContainer = document.getElementById('flutter-container');
-            flutterContainer.style.display = 'block';
-            
-            // Find and ensure Flutter canvas is visible
-            setTimeout(() => {
-                const canvases = document.querySelectorAll('canvas');
-                canvases.forEach(canvas => {
-                    canvas.style.width = '100%';
-                    canvas.style.height = '100%';
-                    canvas.style.display = 'block';
-                    canvas.style.position = 'fixed';
-                    canvas.style.top = '0';
-                    canvas.style.left = '0';
-                    canvas.style.zIndex = '1000';
-                });
-                
-                console.log('Flutter app is now fully visible');
-                
-                // Clean up landing page resources after a delay
-                setTimeout(cleanupLandingPage, 1000);
-                
-            }, 100);
-        }
-        
-        // Clean up landing page resources
-        function cleanupLandingPage() {
-            const landingPage = document.getElementById('landing-page');
-            if (landingPage) {
-                // Remove all child nodes
-                while (landingPage.firstChild) {
-                    landingPage.removeChild(landingPage.firstChild);
+                try {
+                    window.cleanupLandingPageResources();
+                } catch (e) {
+                    console.warn('Error during cleanup:', e);
                 }
-                // Remove the element itself
-                landingPage.remove();
+            }
+            
+            // Hide landing container
+            const landingContainer = document.getElementById('landing-container');
+            landingContainer.style.opacity = '0';
+            
+            // Remove landing container after fade out
+            setTimeout(() => {
+                landingContainer.style.display = 'none';
                 
-                console.log('Landing page resources cleaned up');
-            }
-            
-            // Remove your landing page JS if it's still running intervals
-            // Note: This is tricky without knowing what letinnovation.js does
-            // You might need to add cleanup code in letinnovation.js itself
-            
-            // Force garbage collection if available
-            if (window.gc) {
-                window.gc();
-            }
-        }
-        
-        // Handle page visibility changes
-        document.addEventListener('visibilitychange', function() {
-            if (document.visibilityState === 'visible') {
-                // Page became visible again
-                if (document.body.classList.contains('flutter-loaded')) {
-                    // Make sure Flutter canvas is visible
+                // Show Flutter container
+                const flutterContainer = document.getElementById('flutter-container');
+                flutterContainer.classList.remove('hidden');
+                
+                // Ensure Flutter canvas is properly sized and interactive
+                setTimeout(() => {
                     const canvases = document.querySelectorAll('canvas');
                     canvases.forEach(canvas => {
+                        canvas.style.width = '100%';
+                        canvas.style.height = '100%';
                         canvas.style.display = 'block';
+                        canvas.style.position = 'fixed';
+                        canvas.style.top = '0';
+                        canvas.style.left = '0';
                     });
+                    
+                    // Force Flutter to regain focus and event handling
+                    if (window.flutterCanvas) {
+                        window.flutterCanvas.focus();
+                    }
+                    
+                    console.log('Flutter app is now fully visible and interactive');
+                    
+                    // Dispatch a custom event that Flutter might listen to
+                    window.dispatchEvent(new Event('flutter-app-visible'));
+                    
+                }, 100);
+                
+            }, 500); // Wait for fade out
+        }
+        
+        // Handle page visibility to ensure Flutter gets focus
+        document.addEventListener('visibilitychange', function() {
+            if (document.visibilityState === 'visible') {
+                // Page became visible again - ensure Flutter is interactive
+                const flutterContainer = document.getElementById('flutter-container');
+                if (!flutterContainer.classList.contains('hidden')) {
+                    // Flutter is active, ensure canvas gets focus
+                    setTimeout(() => {
+                        const canvas = document.querySelector('#flutter-container canvas');
+                        if (canvas) {
+                            canvas.style.pointerEvents = 'auto';
+                        }
+                    }, 100);
                 }
             }
         });
     </script>
 </body>
 </html>
-
