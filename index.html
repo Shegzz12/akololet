@@ -6,7 +6,7 @@
     <meta name="description"
         content="LET Innovations - let innovation, Premium electronics components, IoT devices, Arduino, ESP32, Raspberry Pi, sensors, and embedded systems. Expert tech solutions for hardware, software development, IoT automation, AI/ML, and solar systems in Minna, Nigeria.">
     <meta name="keywords"
-        content="LET Innovations, let innovation, drone, gps module, ultrasonic sensor, electronics, Arduino, ESP32, Raspberry Pi, IoT, embedded systems, sensors, smartwatch, electronics repair, software development, AI/ML, solar systems, Nigeria">
+        content="LET Innovations, electronics components, Arduino, ESP32, Raspberry Pi, sensors, computers, iPhones, smartphones, gadgets, IoT, embedded systems, AI, solar systems, Nigeria">
     <meta name="author" content="LET Innovations">
     <meta name="theme-color" content="#6b4b9f">
     <meta property="og:title" content="LET Innovations - Electronics & IoT Solutions">
@@ -23,17 +23,24 @@
 
     <!-- Fade-out CSS for landing page -->
     <style>
-      #app-container {
+      #landing-wrapper {
         transition: opacity 1s ease;
       }
       .fade-out {
         opacity: 0;
       }
+      body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+      }
     </style>
 </head>
 <body>
-    <!-- Landing Page / Splash -->
-    <div id="app-container">
+    <!-- Wrap entire landing page -->
+    <div id="landing-wrapper">
+        <!-- Landing Page / Splash Content -->
         <header>
             <div class="header-top">
                 <ul class="contact-info">
@@ -125,7 +132,7 @@
         </footer>
     </div>
 
-    <!-- Load Flutter Web in background with fade-out -->
+    <!-- Load Flutter Web in background and fade out landing -->
     <script>
         var flutterScript = document.createElement('script');
         flutterScript.src = "flutter_bootstrap.js";
@@ -136,14 +143,14 @@
                 window._flutter.loader.loadEntrypoint({
                     onEntrypointLoaded: function(engineInitializer) {
                         engineInitializer.initializeEngine().then(function(appRunner) {
-                            // Fade out landing page
-                            const container = document.getElementById('app-container');
-                            container.classList.add('fade-out');
+                            // Fade out the landing wrapper completely
+                            const wrapper = document.getElementById('landing-wrapper');
+                            wrapper.classList.add('fade-out');
 
-                            // Wait 1 second for fade-out transition
+                            // Wait for transition (1s)
                             setTimeout(() => {
-                                container.innerHTML = ''; // Clear landing page
-                                appRunner.runApp();       // Run Flutter Web
+                                wrapper.remove(); // Remove landing completely
+                                appRunner.runApp(); // Start Flutter Web
                             }, 1000);
                         });
                     }
@@ -155,5 +162,10 @@
     </script>
 
     <script src="letinnovation.js"></script>
+
+    <!-- Hidden SEO keywords for search engines -->
+    <div id="seo-keywords" style="display:none;">
+        Electronics components, Arduino, ESP32, Raspberry Pi, sensors, resistors, capacitors, diodes, transistors, ICs, microcontrollers, microprocessors, semiconductors, breadboards, jumper wires, power supplies, relays, motors, servos, LEDs, OLED displays, LCD screens, touchscreens, modules, GPS modules, Bluetooth modules, Wi-Fi modules, NFC modules, RFID modules, cameras, webcams, microphones, speakers, batteries, chargers, adapters, computer parts, desktops, laptops, gaming PCs, iPhones, iPads, Android phones, Samsung Galaxy phones, Huawei phones, Xiaomi phones, smartwatches, fitness trackers, earbuds, headphones, drones, quadcopters, RC vehicles, IoT gadgets, smart home devices, smart bulbs, smart plugs, smart sensors, AI modules, robotics kits, solar panels, inverters, UPS, routers, switches, network cables, HDMI cables, USB cables, memory cards, SSDs, HDDs, graphics cards, processors, motherboards, RAM, cooling fans, power banks, LED strips, sensors kits, IoT boards, ESP8266, development boards, prototyping kits, electronic tools, soldering irons, multimeters, oscilloscopes, 3D printers, Arduino shields, Raspberry Pi accessories, camera modules, IoT automation devices, embedded systems solutions, computer accessories, gaming consoles, gadgets, tech devices, smart devices, electronics repair, software development, AI/ML solutions, electronics kits for students, DIY electronics, electronic components online, Nigeria electronics store.
+    </div>
 </body>
 </html>
