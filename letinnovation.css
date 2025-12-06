@@ -1,0 +1,1615 @@
+/* ==================== RESET & BASE (From akolo1.css) ==================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/* DESIGN TOKENS */
+:root {
+    /* Colors */
+    --primary: #463AB6;
+    --primary-light: rgb(117, 91, 153);
+    --primary-dark: #5041d8;
+    --accent: #f7d34d;
+    --accent-dark: #e5c041;
+    --background: #ffffff;
+    --surface: #f5f6f7;
+    --surface-light: #fafbfc;
+    --text-primary: #1a1a1a;
+    --text-secondary: #666666;
+    --text-light: #999999;
+    --border: #e0e0e0;
+    --border-light: #f0f0f0;
+    --error: #d32f2f;
+    --success: #388e3c;
+
+    /* Typography */
+    --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", sans-serif;
+    --font-size-sm: 0.875rem;
+    --font-size-base: 1rem;
+    --font-size-lg: 1.125rem;
+    --font-size-xl: 1.5rem;
+    --font-size-2xl: 2rem;
+    --font-size-3xl: 2.5rem;
+
+    /* Spacing */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+
+    /* Border Radius */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+    --radius-full: 9999px;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--background);
+    color: var(--text-primary);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+/* ==================== SPLASH SCREEN (From akolo1.css) ==================== */
+#splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--primary);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 1s ease-out, visibility 1s;
+    opacity: 1;
+    visibility: visible;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+.splash-text {
+    color: white;
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    margin-bottom: var(--spacing-md);
+    animation: pulse 1.5s infinite alternate;
+    letter-spacing: 1px;
+}
+
+.splash-loading {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: var(--font-size-lg);
+    letter-spacing: 1px;
+}
+
+.fade-out {
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    }
+
+    100% {
+        transform: scale(1.05);
+        text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+    }
+}
+
+/* ==================== HEADER (From akolo1.css) ==================== */
+/* Updated header structure for mobile scrollable search */
+.header-top {
+    background-color: var(--surface);
+    padding: var(--spacing-sm) var(--spacing-md);
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--spacing-lg);
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.contact-info {
+    list-style: none;
+    display: flex;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+}
+
+.contact-info a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+    transition: color 0.3s ease;
+}
+
+.contact-info a:hover {
+    color: var(--primary);
+}
+
+header {
+    background-color: white;
+    position: relative;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* On desktop, navbar stays as normal flex layout */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+    background-color: white;
+    padding: var(--spacing-md);
+    position: sticky;
+    top: 0;
+    z-index: 1001;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    flex-shrink: 0;
+}
+
+.logo-symbol {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+}
+
+.logo-text {
+    height: 40px;
+    object-fit: contain;
+}
+
+.search-form {
+    display: flex;
+    flex: 1;
+    min-width: 250px;
+    gap: 0;
+}
+
+.search-form input {
+    flex: 1;
+    padding: var(--spacing-sm);
+    border: 2px solid var(--border);
+    border-right: none;
+    border-radius: var(--radius-md) 0 0 var(--radius-md);
+    font-size: var(--font-size-sm);
+    color: var(--text-primary);
+    font-weight: 600;
+    background-color: var(--surface-light);
+    transition: all 0.3s ease;
+}
+
+.search-form input:focus {
+    outline: none;
+    border-color: var(--primary);
+    background-color: white;
+}
+
+.search-form input::placeholder {
+    color: var(--text-light);
+}
+
+.search-form button {
+    padding: var(--spacing-sm) var(--spacing-md);
+    background-color: var(--primary);
+    color: white;
+    border: 2px solid var(--primary);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    cursor: pointer;
+    font-weight: 700;
+    transition: all 0.3s ease;
+}
+
+.search-form button:hover {
+    background-color: var(--primary-dark);
+    box-shadow: 0 2px 8px rgba(107, 75, 159, 0.2);
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: var(--spacing-sm);
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    background-color: var(--primary);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-md);
+    font-weight: 700;
+    font-size: var(--font-size-sm);
+    transition: all 0.3s ease;
+    border: 2px solid var(--primary);
+}
+
+.nav-links a:hover {
+    background-color: white;
+    color: var(--primary);
+}
+
+.mobile-menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: var(--font-size-xl);
+    cursor: pointer;
+    color: var(--primary);
+}
+
+.nav-icon {
+    position: relative;
+    display: inline-block;
+}
+
+.nav-icon a {
+    padding: var(--spacing-sm);
+    /* Make the icon link background match the others */
+}
+
+.nav-icon a i {
+    font-size: var(--font-size-base);
+    /* Icon size */
+}
+
+/* ==================== MAIN CONTENT (From akolo1.css) ==================== */
+main {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.section-title {
+    margin-top: 1rem;
+    font-weight: bolder;
+    text-align: center;
+    font-size: var(--font-size-3xl);
+    color: black;
+    margin-bottom: var(--spacing-xl);
+    letter-spacing: 0.5px;
+}
+
+/* Products Section */
+.products-section {
+    width: 100%;
+    justify-self: center;
+    background-color: var(--surface);
+    padding: 0.05rem;
+    margin-top: 2rem;
+    border-radius: var(--radius-lg);
+}
+
+.products-container {
+    max-width: 1300px;
+    padding: 0 var(--spacing-xs);
+    margin: 0 auto;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(4,1fr); 
+    gap: var(--spacing-md);
+    box-sizing: border-box;
+    justify-content: center;
+}
+.product-grid .boxes {
+    background-color: var(--background);
+    border: 2px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-md);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.product-grid .boxes:hover {
+    background-color: white;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(107, 75, 159, 0.15);
+    border-color: var(--primary);
+}
+
+.boxes .par1 {
+    background-color: gray;
+    color: white;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: var(--font-size-sm);
+    border-radius: var(--radius-full);
+    width: fit-content;
+    font-weight: 700;
+}
+
+.boxes .imgsrc {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+}
+
+.boxes>h1 {
+    color: black;
+    font-size: var(--font-size-lg);
+    margin: 0;
+    text-transform: uppercase;
+    line-height: 1.3;
+}
+
+.boxes:hover>h1 {
+    color: var(--primary);
+}
+
+.boxes>h2 {
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    margin: 0;
+    line-height: 1.4;
+}
+
+.boxes:hover>h2 {
+    color: var(--primary);
+}
+
+.boxes .par2 {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    display: flex;
+    gap: var(--spacing-sm);
+    align-items: center;
+}
+
+.boxes:hover .par2 {
+    color: var(--text-primary);
+}
+
+.boxes .discount {
+    color: gray;
+    font-weight: 700;
+    font-size: var(--font-size-base);
+}
+
+.boxes:hover .discount {
+    color: var(--error);
+}
+
+.boxes .par3 {
+    color: var(--text-secondary);
+    font-size: var(--font-size-base);
+}
+
+.boxes:hover .par3 {
+    color: var(--text-primary);
+}
+
+.boxes .price {
+    font-weight: 700;
+    font-size: var(--font-size-lg);
+    color: black;
+}
+.boxes:hover .price {
+    color: var(--primary)
+}
+.boxes > button {
+    border: none;
+}
+.boxes>.sub {
+    margin-top: auto;
+    text-decoration: none;
+    border: 2px solid gray;
+    background-color: gray;
+    color: white;
+    padding: var(--spacing-sm);
+    font-size: var(--font-size-sm);
+    font-weight: 700;
+    border-radius: var(--radius-md);
+    text-align: center;
+    transition: all 0.3s ease;
+    display: block;
+}
+
+.boxes:hover>.sub {
+    background-color: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+.boxes:hover>.sub:hover {
+    color:gray;
+    background-color: white;
+    border-color: gray;
+}
+
+/* Services Section */
+.services-section {
+    background-color: var(--background);
+    padding: var(--spacing-xl);
+    margin: var(--spacing-lg);
+    border-radius: var(--radius-lg);
+    border: 2px solid var(--border);
+}
+
+.services-section h2 {
+    text-align: center;
+    color: black;
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--spacing-xl);
+}
+
+.services-grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-md);
+}
+
+.services-grid li {
+    text-align: center;
+}
+
+.services-grid a {
+    display: block;
+    color: var(--primary);
+    background-color: var(--surface-light);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: var(--font-size-sm);
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.services-grid a:hover {
+    background-color: var(--primary);
+    color: white;
+    border-color: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(107, 75, 159, 0.2);
+}
+
+/* Contact Section */
+.contact-section {
+    background-color: var(--surface);
+    padding: var(--spacing-xl);
+    margin: var(--spacing-lg);
+    border-radius: var(--radius-lg);
+}
+
+.contact-section h2 {
+    text-align: center;
+    font-size: var(--font-size-2xl);
+    color: var(--primary);
+    margin-bottom: var(--spacing-sm);
+}
+
+.contact-section>p {
+    text-align: center;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-xl);
+}
+
+.contact-form {
+    max-width: 600px;
+    margin: 0 auto var(--spacing-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.form-group label {
+    font-weight: 600;
+    color: var(--primary-dark);
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
+    padding: var(--spacing-sm);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-base);
+    color: var(--text-primary);
+    background-color: white;
+    transition: border-color 0.3s ease;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(107, 75, 159, 0.2);
+}
+
+.drop-zone {
+    border: 2px dashed var(--border);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-lg);
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.drop-zone:hover {
+    border-color: var(--primary);
+    background-color: var(--surface-light);
+}
+
+.drop-zone.drag-over {
+    border-color: var(--primary-dark);
+    background-color: var(--surface-light);
+}
+
+.drop-zone p {
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.submit-btn {
+    padding: var(--spacing-md);
+    background-color: var(--primary);
+    color: white;
+    border: 2px solid var(--primary);
+    border-radius: var(--radius-md);
+    font-weight: 700;
+    font-size: var(--font-size-sm);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.submit-btn:hover {
+    background-color: var(--primary-dark);
+    box-shadow: 0 4px 12px rgba(107, 75, 159, 0.2);
+}
+
+.contact-status {
+    text-align: center;
+    padding: var(--spacing-md);
+    margin-top: var(--spacing-md);
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    display: none;
+}
+
+.contact-status.success {
+    display: block;
+    background-color: rgba(56, 142, 60, 0.1);
+    color: var(--success);
+}
+
+.contact-status.error {
+    display: block;
+    background-color: rgba(211, 47, 47, 0.1);
+    color: var(--error);
+}
+
+/* ==================== FOOTER (From akolo1.css) ==================== */
+footer {
+    background-color: var(--primary-dark);
+    color: white;
+    padding: var(--spacing-xl) var(--spacing-md) var(--spacing-sm);
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-bottom: var(--spacing-lg);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.newsletter-section {
+    text-align: center;
+}
+
+.newsletter-section h3 {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--spacing-sm);
+}
+
+.newsletter-section p {
+    font-size: var(--font-size-base);
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: var(--spacing-md);
+}
+
+.newsletter-form {
+    display: flex;
+    max-width: 400px;
+    margin: 0 auto;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+
+.newsletter-form input {
+    flex: 1;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: none;
+    font-size: var(--font-size-base);
+    color: var(--text-primary);
+}
+
+.newsletter-form button {
+    background-color: var(--accent);
+    color: var(--text-primary);
+    border: none;
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.newsletter-form button:hover {
+    background-color: var(--accent-dark);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: var(--spacing-sm);
+    font-size: var(--font-size-sm);
+    color: rgba(255, 255, 255, 0.6);
+}
+
+#redirect-message {
+    /* 1. Positioning and Centering */
+    position: fixed; /* 👈 ESSENTIAL: Activates z-index and centers relative to viewport */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centers the element */
+    
+    /* 2. Z-Index Fix */
+    z-index: 9991; /* 👈 FIX: Set higher than any other element (e.g., #product-modal at 2000) */
+
+    /* 3. Appearance and Initial State */
+    background-color: var(--primary); 
+    color: white;
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-radius: var(--radius-md);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    text-align: center;
+    font-size: var(--font-size-lg);
+    
+    /* Initially hidden */
+    display: none; 
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Class to make the message visible via JavaScript */
+.message-visible {
+    display: flex !important; 
+}
+
+/* Optional: Spinner animation */
+.spinner {
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+/* ==================== SITE RESPONSIVE DESIGN (From akolo1.css) ==================== */
+
+.biggestbox {
+    background-color: rgba(0,0,0,0.8);
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    padding: 10px 5px;
+}
+.biggestbox .containerbox {
+    margin: var(--spacing-md);
+    justify-self: center;
+    display: grid;
+    grid-template-rows: auto auto;
+    width: 95%;
+    max-width: 1000px;
+    height: fit-content;
+    max-height: 90vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border-radius: 1.5rem;
+    margin: var(--spacing-md);
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+    background-color: white;
+    position: relative;
+    z-index: 9990;
+    padding: 2rem;
+    animation: slideIn 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.row11 {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+.row11 .col1 {
+    width: fit-content;
+    height: fit-content;
+}
+.row11 .col1 .product-image-area {
+    width: 100%;
+    height: 250px;
+    border-radius: 1.5rem;
+    background-color: white;
+    padding: 0.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+.row11 .col2 {
+    text-align: left;
+    height: fit-content;
+    box-sizing: border-box;
+}
+.row11 .col2 .product-name {
+    text-transform: uppercase;
+    font-size: var(--font-size-3xl);
+    color: black;
+    margin-bottom: 1.5vw;
+    line-height: 1.2;
+    font-weight: bold;
+}
+.row11 .col2 .product-status {
+    color: var(--primary);
+    font-weight: 600;
+    margin-bottom: 1.5vw;
+    text-transform: uppercase;
+}
+.row11 .col2 .priceh {
+    color: gray;
+    font-weight: bold;
+}
+.discount, .costprice {
+    color: black;
+    font-size: var(--font-size-xl);
+}
+.sellingprice {
+    color: var(--error);
+    font-size: var(--font-size-xl);
+}
+.costprice {
+    text-decoration:line-through;
+    text-decoration-color: black;
+}
+.naira {
+    text-decoration: line-through;
+    text-decoration-style: double;
+    text-decoration-color: black;
+}
+.naira1 {
+    text-decoration: line-through;
+    text-decoration-style: double;
+    text-decoration-color: var(--error);
+}
+
+.btn {
+    border: 2px solid var(--primary);
+    border-radius: var(--radius-md);
+    font-weight: 700;
+    background-color: var(--primary);
+    color: white;
+    padding: var(--spacing-sm);
+    font-size: 1vw;
+    cursor: pointer;
+    transition: all 0.5s ease;
+    margin-top: 1.5vw;
+}
+.btn:hover {
+    background-color: white;
+    color: var(--primary);
+}
+.col3 .modal-close-btn {
+    opacity: 0;
+    animation-name: delayed-fade-in;
+    animation-duration: 2.5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    transition: opacity 0.5s ease-in;
+    position: fixed;
+    z-index: 1000;
+    color: var(--error);
+    font-size: 1.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-weight: bold;
+    background-color: var(--error);
+    border: 2px solid var(--error);
+    color: white;
+    border-radius: 0.5rem;
+    top: 5rem;
+    right: 15rem;
+    cursor: pointer;
+}
+@keyframes delayed-fade-in {
+    0%, 90% {
+        opacity: 0;
+    }
+    91%, 100% {
+        opacity: 1;
+    }
+}
+.col3 .modal-close-btn:hover {
+    color: var(--error);
+    background-color: white;
+    border-color: var(--error);
+}
+.row22 {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+    padding: 1rem;
+    border-radius: 1rem;
+    margin-top: 1rem;
+}
+.row22 .letinnovation {
+    padding: 1rem;
+    border-right: 2px solid #eeebeb;
+}
+.letinnovation .section-heading {
+    text-transform: uppercase;
+}
+.letinnovation .product-description {
+    color: gray;
+    text-align: justify;
+    margin-top: 1rem;
+}
+.row22 .letinnovation2 {
+    padding: 1rem;
+}
+.letinnovation2 > h2 {
+    text-transform: uppercase;
+}
+
+.letinnovation2 .column111 {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 12px;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+    border-radius: 1rem;
+    padding: 1rem;
+
+
+}
+.column111 #firstname {
+    text-transform: uppercase;
+}
+.column111 #firstcity {
+    color: gray;
+    text-transform: capitalize;
+}
+.column111 .whatsyourname {
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+    padding: 0.8rem;
+    border-radius: 1rem;
+}
+.whatsyourname .review-comment {
+    line-height: 1.2em;
+    font-size: 16px;
+    min-height: 1.2em;
+    max-width: 95%;
+    text-align: justify !important;
+    color: gray;
+}
+#starrating {
+    color: goldenrod;
+    font-size: 1.2rem;
+}
+
+@media (max-width: 899px) {
+    .products-section {
+        width: 100%;
+        justify-self: center;
+        background-color: var(--surface);
+        padding: 0.01rem;
+        margin-top: 1rem;
+        border-radius: var(--radius-lg);
+    }
+
+    .products-container {
+        max-width: 1300px;
+        padding: 0 0;
+        margin: 0 auto;
+    }
+
+
+    /* Header adjustments for smaller screens */
+    .header-top {
+        display: none; /* Hide top contact info on mobile */
+    }
+
+    .navbar {
+        padding: var(--spacing-sm) var(--spacing-md);
+    }
+
+    /* Search bar moves below navbar and scrolls away */
+    .search-form {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        width: 50%;
+        min-width: 50%;
+        min-height: auto;
+        gap: 0;
+        padding: var(--spacing-md);
+        background-color: white;
+        border-bottom: 1px solid var(--border-light);
+        z-index: 1000;
+        display: flex;
+        /* Added smooth transition for swipe and scroll animations */
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+        transform: translateY(0);
+        opacity: 1;
+        margin-bottom: 1rem;
+    }
+
+    /* Hide search bar when scrolling down */
+    .search-form.search-hidden {
+        transform: translateY(-100%);
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .mobile-menu-toggle {
+        display: block;
+        flex-shrink: 0;
+    }
+
+    /* Nav links remain hidden until clicked */
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        top: calc(100% + 60px);
+        left: 0;
+        right: 0;
+        z-index: 999;
+        background-color: white;
+        border-top: 1px solid var(--border);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        padding: var(--spacing-sm) 0;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .nav-links li {
+        width: 100%;
+    }
+
+    .nav-links a {
+        border: none;
+        border-radius: 0;
+        background-color: transparent;
+        color: var(--text-primary);
+        padding: var(--spacing-md);
+        text-align: left;
+        display: block;
+        border-bottom: 1px solid var(--border-light);
+    }
+
+    .nav-links a:hover {
+        background-color: var(--surface);
+        color: var(--primary);
+    }
+
+    .nav-icon a {
+        background-color: transparent;
+        padding-left: var(--spacing-md);
+    }
+    
+    .nav-icon .count-badge {
+        position: static;
+        margin-left: var(--spacing-xs);
+        background-color: var(--primary);
+        color: white;
+    }
+    
+    /* Main Content */
+    .section-title {
+        font-size: var(--font-size-2xl);
+    }
+    
+    .products-section,
+    .services-section,
+    .contact-section {
+        margin: var(--spacing-md);
+        padding: var(--spacing-lg);
+    }
+    
+    
+    /* Product Card */
+    .boxes .imgsrc {
+        height: 180px;
+    }
+    
+    /* Services Grid */
+    .services-grid {
+        gap: var(--spacing-sm);
+    }
+
+    
+}
+
+
+/* ==================== SITE RESPONSIVE DESIGN (Desktop Layout) ==================== */
+@media (min-width: 900px) { 
+    
+    .search-form {
+        position: static;
+        transform: translateY(0);
+        opacity: 1;
+    }
+    
+    .nav-links {
+        display: flex !important; /* Override mobile display: none */
+        position: static;
+        width: auto;
+        padding: 0;
+        border: none;
+        box-shadow: none;
+    }
+
+}
+@media (min-width: 200px) {
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.4rem;
+    }
+    .boxes {
+        padding: 0.3rem !important;
+        gap: 0.5rem !important;
+    }
+
+    .boxes .imgsrc {
+        height: 110px;
+    }
+
+    .boxes > h1 {
+        font-size: 0.8rem !important;
+    }
+    .search-form {
+        display: none;
+    }
+    .section-title {
+        font-size: 1.3rem;
+        font-weight: bolder;
+        margin-bottom: 1rem;
+    }
+    .boxes > h2,
+    .boxes .par3 {
+        font-size: 0.75rem !important;
+    }
+    .boxes .par2 {
+        font-size: 0.4rem;
+        display: block;
+    }
+
+    .boxes .par1 {
+        display: none;
+    }
+
+    .boxes .sub {
+        font-size: 0.7rem !important;
+        padding: 0.4rem !important;
+
+    }
+    .biggestbox .containerbox {
+        justify-self: center !important;
+        grid-template-rows: auto auto !important;
+        box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+        position: relative;
+    }
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    .row11 {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+    .row11 .col1 {
+        width: fit-content;
+        height: fit-content;
+    }
+    .row11 .col1 .product-image-area {
+        height: 30vh;
+    }
+    .row11 .col2 {
+        text-align: center !important;
+        height: fit-content;
+    }
+    .row11 .col2 .product-name {
+        font-size: var(--font-size-xl);
+        margin-bottom: 1vw;
+    }
+    .discount, .costprice {
+        font-size: var(--font-size-base);
+    }
+    .sellingprice {
+        font-size: var(--font-size-base);
+    }
+    .hellobuttons {
+        justify-content: center;
+    }
+    .btn, .button-reviewer {
+        font-size: 0.8rem;
+    }
+    .col3 .modal-close-btn {
+        top: 3rem;
+        right: 3rem;
+        cursor: pointer;
+    }
+    @keyframes delayed-fade-in {
+        0%, 90% {
+            opacity: 0;
+        }
+        91%, 100% {
+            opacity: 1;
+        }
+    }
+    .button-reviewer {
+        border: 2px solid var(--primary);
+        border-radius: var(--radius-md);
+        font-weight: 700;
+        background-color: var(--primary);
+        color: white;
+        padding: 1rem;
+        font-size: 0.8rem;
+        cursor: pointer;
+        transition: all 0.5s ease;
+        margin-top: 1vw;
+    }
+    .button-reviewer:hover {
+        background-color: white;
+        color: var(--primary);
+    }
+    .letinnovation2 {
+        display: none;
+    }
+    .row22 {
+        display: flex !important;
+        flex-direction: row !important;
+        justify-self: center !important;
+    }
+    .row22 .letinnovation {
+        border: none;
+    }
+    .letinnovation .section-heading {
+        font-size: var(--font-size-base);
+        text-align: center;
+    }
+    .letinnovation .product-description {
+        font-size: var(--font-size-base);
+    }
+}
+
+@media (min-width: 600px) {
+    .product-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+    .boxes > h1 {
+        font-size: 1.5rem;
+    }
+    .search-form {
+        display: none;
+    }
+    .section-title {
+        font-size: 1.5rem;
+    }
+    .boxes > h2,
+    .boxes .par3 {
+        font-size: 1rem;
+    }
+
+    .boxes .price {
+        font-size: 1.5rem;
+    }
+    .biggestbox .containerbox {
+        grid-template-rows: auto auto;
+    }
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    .row11 {
+        display: flex !important;
+        flex-direction: row !important;
+    }
+    .row11 .col1 .product-image-area {
+        height: 30vh !important;
+    }
+    .row11 .col2 {
+        height: fit-content;
+        text-align: left !important;
+    }
+    .row11 .col2 .product-name {
+        font-size: var(--font-size-xl) !important;
+        margin-bottom: 1rem !important;
+    }
+    .discount, .costprice {
+        font-size: var(--font-size-base);
+    }
+    .sellingprice {
+        font-size: var(--font-size-base);
+    }
+    .hellobuttons {
+        justify-self: left;
+    }
+    .btn, .button-reviewer {
+        padding: var(--spacing-xs);
+        font-size: 0.7rem;
+    }
+    @keyframes delayed-fade-in {
+        0%, 90% {
+            opacity: 0;
+        }
+        91%, 100% {
+            opacity: 1;
+        }
+    }
+    .letinnovation2 {
+        display: none;
+    }
+    .row22 {
+        flex-direction: row;
+    }
+    .letinnovation .section-heading {
+        font-size: var(--font-size-base);
+    }
+    .letinnovation .product-description {
+        font-size: var(--font-size-base);
+        text-align: justify;
+        margin-top: 0.5rem;
+    }
+}
+
+
+@media (min-width: 800px) {
+    .product-grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+    }
+    .boxes .par1 {
+        font-size: 0.7rem;
+        display: block;
+    }
+    .boxes .imgsrc {
+        height: 140px;
+    }
+
+    .boxes > h1 {
+        font-size: 1rem !important;
+    }
+    .search-form {
+        display: none;
+    }
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    .row11 .col2 .product-name {
+        font-size: var(--font-size-2xl) !important;
+        margin-bottom: 1.2rem !important;
+    }   
+    .discount, .costprice {
+        font-size: var(--font-size-base);
+    }
+    .sellingprice {
+        font-size: var(--font-size-base);
+    }
+    .btn {
+        padding: 0.5rem;
+        font-size: 1rem;
+    }
+    .col3 .modal-close-btn {
+        top: 3.5rem;
+        right: 4rem;
+    }
+    @keyframes delayed-fade-in {
+        0%, 90% {
+            opacity: 0;
+        }
+        91%, 100% {
+            opacity: 1;
+        }
+    }
+    .button-reviewer {
+        display: none;
+    }
+    .letinnovation2 {
+        display: block;
+    }
+    .letinnovation2 h2 {
+        font-size: 1.3rem !important;
+    }
+    .letinnovation .section-heading {
+        font-size: 1.3rem;
+        text-align: left;
+    }
+    .letinnovation .product-description {
+        font-size: var(--font-size-base);
+    }
+}
+
+
+@media (min-width: 930px) {
+    .product-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+    .boxes .par1 {
+        font-size: 0.8rem;
+        display: block;
+    }
+    .boxes .imgsrc {
+        max-width: 300px;
+        max-height: 200px;
+    }
+
+    .boxes .mrname {
+        font-size: 1.5rem !important;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+    .search-form {
+        display: block;
+
+    }
+    .boxes  h2,
+    .boxes .par3 {
+        font-size: 1rem !important;
+    }
+    .boxes .sub {
+        font-size: 0.8rem !important;
+        padding: 0.8rem !important;
+    }
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    .row11 .col2 .product-name {
+        font-size: var(--font-size-2xl) !important;
+    }
+    .discount, .costprice {
+        font-size: var(--font-size-base);
+    }
+    .sellingprice {
+        font-size: var(--font-size-base);
+    }
+    .col3 .modal-close-btn {
+        top: 4rem;
+        right: 6rem;
+    }
+    @keyframes delayed-fade-in {
+        0%, 90% {
+            opacity: 0;
+        }
+        91%, 100% {
+            opacity: 1;
+        }
+    }
+    .button-reviewer {
+        display: none;
+    }
+}
+
+
+@media (min-width: 1000px) {
+    .product-grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+    }
+    .boxes .imgsrc {
+        height: fit-content;
+        object-fit: contain;
+    }
+    .search-form input {
+        min-width: 300px;
+        max-width: 550px;
+    }
+    .boxes .par2 {
+        font-size: 1rem !important;
+        margin-top: 0.5rem;
+    }
+    .boxes .price {
+        font-size: 1.5rem;
+    }
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    .row11 .col2 .product-name {
+        font-size: var(--font-size-2xl) !important;
+    }
+    .btn {
+        font-size: 1rem;
+    }
+    .col3 .modal-close-btn {
+        top: 4rem;
+        right: 15rem;
+    }
+    @keyframes delayed-fade-in {
+        0%, 90% {
+            opacity: 0;
+        }
+        91%, 100% {
+            opacity: 1;
+        }
+    }
+    .button-reviewer {
+        display: none;
+    }
+    .letinnovation2 {
+        display: block;
+    }
+    .row22 {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 10px !important;
+    }
+}
+@media (max-width: 650px) {
+    .services-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .services-grid a {
+        font-size: 0.7rem;
+    }
+}
+@media (max-width: 799px) {
+    .oldpage {
+        display: block;
+    }
+}
+@media (min-width: 801px) {
+    .oldpage {
+        display: none !important;
+    }
+}
+.oldpage {
+    background-color: rgba(0,0,0,0.8);
+    position: fixed;
+    z-index: 3000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    padding: 10px 5px;
+}
+.sustain {
+    margin: var(--spacing-md);
+    justify-self: center;
+    width: 95%;
+    height: fit-content;
+    max-height: 90vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border-radius: 1.5rem;
+    margin: var(--spacing-md);
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+    background-color: white;
+    position: relative;
+    z-index: 9990;
+    padding: 2rem;
+    animation: slideIn 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 10px;
+}
+.hely {
+    opacity: 0;
+    animation-name: delayed-fade-in;
+    animation-duration: 2.5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    transition: opacity 0.5s ease-in;
+    position: fixed;
+    z-index: 1000;
+    color: var(--error);
+    font-size: 1.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-weight: bold;
+    background-color: var(--error);
+    border: 2px solid var(--error);
+    color: white;
+    border-radius: 0.5rem;
+    top: 3rem;
+    right: 3rem;
+    cursor: pointer;
+}
+.hely:hover {
+    color: var(--error);
+    background-color: white;
+    border-color: var(--error);
+}
+.newpage {
+    display: grid;
+    grid-template-rows: auto;
+}
+.newpage > .column111 {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: auto auto;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+    border-radius: 1rem;
+    padding: 1rem;
+}
