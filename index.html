@@ -1,44 +1,159 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="LET Innovations - let innovation, Premium electronics components, IoT devices, Arduino, ESP32, Raspberry Pi, sensors, and embedded systems. Expert tech solutions for hardware, software development, IoT automation, AI/ML, and solar systems in Minna, Nigeria.">
+    <meta name="keywords"
+        content="LET Innovations, let innovation, drone, gps module, ultrasonic sensor, electronics, Arduino, ESP32, Raspberry Pi, IoT, embedded systems, sensors, smartwatch, electronics repair, software development, AI/ML, solar systems, Nigeria">
+    <meta name="author" content="LET Innovations">
+    <meta name="theme-color" content="#6b4b9f">
+    <meta property="og:title" content="LET Innovations - Electronics & IoT Solutions">
+    <meta property="og:description"
+        content="Professional electronics, IoT devices, and embedded systems solutions. AI-driven tech for smarter living. Shop premium components and expert services.">
+    <meta property="og:image" content="img/let_logo.png">
+    <meta property="og:type" content="business.business">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="LET Innovations - Electronics & IoT Solutions">
+    <meta name="twitter:description" content="Professional electronics and IoT solutions">
+    <link rel="canonical" href="https://letinnovations.store">
+    <title>LET Innovations - Electronics, IoT & Embedded Systems Solutions</title>
+    <link rel="stylesheet" href="letinnovation.css">
 
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
-
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
-
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
-  -->
-  <base href="/">
-
-  <meta charset="UTF-8">
-  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
-
-  <!-- iOS meta tags & icons -->
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="let_store_recreated">
-  <link rel="apple-touch-icon" href="icons/Icon-192.png">
-
-  <!-- Favicon -->
-  <!-- Primary favicon -->
-<link rel="icon" href="logo.png" sizes="32x32" type="image/png">
-<link rel="icon" href="logo.png" sizes="16x16" type="image/png">
-
-<!-- High-resolution versions (safe, optional) -->
-<link rel="icon" href="logo.png" sizes="192x192" type="image/png">
-<link rel="icon" href="logo.png" sizes="512x512" type="image/png">
-
-  <title>LET Innovations - Electronics, Computers, Gadgets, SmartPhones, Smart Devices, IoT, Raspberry pi, Arduino, Esp32 Components in Nigeria</title>
-  <link rel="manifest" href="manifest.json">
+    <!-- Fade-out CSS for landing page -->
+    <style>
+      #app-container {
+        transition: opacity 1s ease;
+      }
+      .fade-out {
+        opacity: 0;
+      }
+    </style>
 </head>
 <body>
-  <script src="flutter_bootstrap.js" async></script>
+    <!-- Landing Page / Splash -->
+    <div id="app-container">
+        <header>
+            <div class="header-top">
+                <ul class="contact-info">
+                    <li><a href="mailto:letinnovation69@gmail.com">📧 letinnovation69@gmail.com</a></li>
+                    <li><a href="tel:+2348100428881">📞 +2348100428881 (Whatsapp)</a></li>
+                </ul>
+            </div>
+        </header>
+
+        <nav class="navbar">
+            <div class="logo-section">
+                <img src="img/let_symbol.png" alt="LET Symbol" class="logo-symbol">
+                <img src="img/let_logo.png" alt="LET Logo" class="logo-text">
+            </div>
+            <form class="search-form" role="search">
+                <input type="search" name="search" id="search" placeholder="Search products..." title="Search your favorite products">
+                <button type="submit" aria-label="Search">SEARCH</button>
+            </form>
+            <ul class="nav-links">
+                <li><a href="akolo.html">HOME</a></li>
+                <li><a href="https://letinnovations.store/">LOGIN</a></li>
+            </ul>
+            <button class="mobile-menu-toggle" aria-label="Toggle menu">☰</button>
+        </nav>
+
+        <main>
+            <section class="products-section">
+                <div class="products-container">
+                    <h1 class="section-title">POPULAR HARDWARE PRODUCTS</h1>
+                    <div class="product-grid" id="product-grid"></div>
+                </div>
+            </section>
+
+            <section class="services-section">
+                <h2>LETI Professional Services</h2>
+                <ul class="services-grid">
+                    <li><a href="https://letinnovations.store">Software Development (Web, App)</a></li>
+                    <li><a href="https://letinnovations.store">Embedded Systems - IoT & Automation</a></li>
+                    <li><a href="https://letinnovations.store">Phones and Systems Repair</a></li>
+                    <li><a href="https://letinnovations.store">Artificial Intelligence - Machine Learning</a></li>
+                    <li><a href="https://letinnovations.store">Solar and Inverter Systems Design</a></li>
+                    <li><a href="https://letinnovations.store">Co-Working Lab - Exclusive Workspace</a></li>
+                    <li><a href="https://letinnovations.store">Sales of Electronic Components</a></li>
+                    <li><a href="https://letinnovations.store">Computer Cafe Services</a></li>
+                    <li><a href="https://letinnovations.store">Other Services</a></li>
+                </ul>
+            </section>
+
+            <section class="contact-section">
+                <h2>Contact LET Innovations</h2>
+                <p>Have questions? Drop your message below — we'll reply soon!</p>
+                <form id="contact-form" class="contact-form">
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name" placeholder="Your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" placeholder="Your email address" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message:</label>
+                        <textarea id="message" name="message" rows="5" placeholder="Type your message..." required></textarea>
+                    </div>
+                    <div id="drop-zone" class="drop-zone">
+                        <p>Drag & Drop files here or click to upload</p>
+                        <input type="file" id="file-input" multiple style="display: none;">
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+                <div id="contact-status" class="contact-status"></div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <div class="newsletter-section">
+                    <h3>Subscribe to Our Newsletters</h3>
+                    <p>Get email updates about our latest discount offers and new products</p>
+                    <form class="newsletter-form">
+                        <input type="email" name="subscribe" placeholder="example@email.com" required>
+                        <button type="submit">SUBSCRIBE</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 LET Innovations. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Load Flutter Web in background with fade-out -->
+    <script>
+        var flutterScript = document.createElement('script');
+        flutterScript.src = "flutter_bootstrap.js";
+        flutterScript.async = true;
+
+        flutterScript.onload = function() {
+            if (window._flutter) {
+                window._flutter.loader.loadEntrypoint({
+                    onEntrypointLoaded: function(engineInitializer) {
+                        engineInitializer.initializeEngine().then(function(appRunner) {
+                            // Fade out landing page
+                            const container = document.getElementById('app-container');
+                            container.classList.add('fade-out');
+
+                            // Wait 1 second for fade-out transition
+                            setTimeout(() => {
+                                container.innerHTML = ''; // Clear landing page
+                                appRunner.runApp();       // Run Flutter Web
+                            }, 1000);
+                        });
+                    }
+                });
+            }
+        };
+
+        document.body.appendChild(flutterScript);
+    </script>
+
+    <script src="letinnovation.js"></script>
 </body>
 </html>
