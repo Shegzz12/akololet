@@ -1,176 +1,459 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="LET Innovations - let innovation, Premium electronics components, IoT devices, Arduino, ESP32, Raspberry Pi, sensors, and embedded systems. Expert tech solutions for hardware, software development, IoT automation, AI/ML, and solar systems in Minna, Nigeria.">
-  <meta name="keywords" content="LET Innovations, electronics components, Arduino, ESP32, Raspberry Pi, sensors, computers, iPhones, smartphones, gadgets, IoT, embedded systems, AI, solar systems, Nigeria">
-  <meta name="author" content="LET Innovations">
-  <meta name="theme-color" content="#6b4b9f">
-  <link rel="canonical" href="https://letinnovations.store">
-  <title>LET Innovations - Electronics, IoT & Embedded Systems Solutions</title>
-  <link rel="stylesheet" href="letinnovation.css">
-
-  <!-- Fade effect -->
-  <style>
-    #landing-wrapper {
-      transition: opacity 1s ease;
-    }
-    .fade-out {
-      opacity: 0;
-    }
-    #flutter-container {
-      opacity: 0;
-      transition: opacity 1s ease;
-    }
-    #flutter-container.visible {
-      opacity: 1;
-    }
-    body, html {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      width: 100%;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="LET Innovations - let innovation, Premium electronics components, IoT devices, Arduino, ESP32, Raspberry Pi, sensors, and embedded systems. Expert tech solutions for hardware, software development, IoT automation, AI/ML, and solar systems in Minna, Nigeria.">
+    <meta name="keywords"
+        content="LET Innovations, let innovation, drone, gps module, ultrasonic sensor, electronics, Arduino, ESP32, Raspberry Pi, IoT, embedded systems, sensors, smartwatch, electronics repair, software development, AI/ML, solar systems, Nigeria">
+    <meta name="author" content="LET Innovations">
+    <meta name="theme-color" content="#6b4b9f">
+    <meta property="og:title" content="LET Innovations - Electronics & IoT Solutions">
+    <meta property="og:description"
+        content="Professional electronics, IoT devices, and embedded systems solutions. AI-driven tech for smarter living. Shop premium components and expert services.">
+    <meta property="og:image" content="img/let_logo.png">
+    <meta property="og:type" content="business.business">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="LET Innovations - Electronics & IoT Solutions">
+    <meta name="twitter:description" content="Professional electronics and IoT solutions">
+    <link rel="canonical" href="https://letinnovations.store">
+    
+    <!-- Flutter Web setup (all in root) -->
+    <base href="/">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="let_store_recreated">
+    <link rel="apple-touch-icon" href="icons/Icon-192.png">
+    <link rel="icon" href="logo.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="logo.png" sizes="16x16" type="image/png">
+    <link rel="icon" href="logo.png" sizes="192x192" type="image/png">
+    <link rel="icon" href="logo.png" sizes="512x512" type="image/png">
+    <link rel="manifest" href="manifest.json">
+    
+    <title>LET Innovations - Electronics, IoT & Embedded Systems Solutions</title>
+    <link rel="stylesheet" href="letinnovation.css">
+    
+    <style>
+        /* Hide everything initially except splash */
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        
+        /* Landing page wrapper - visible initially */
+        #landing-page {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            background: white;
+            z-index: 1;
+        }
+        
+        /* Splash screen - shown first */
+        #splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #6b4b9f 0%, #4a2c7a 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            color: white;
+            text-align: center;
+            transition: opacity 0.5s ease;
+        }
+        
+        .splash-text {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .splash-loading {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+        
+        /* Main landing content - hidden initially */
+        #landing-content {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        /* Flutter container - hidden initially */
+        #flutter-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            display: none;
+        }
+        
+        /* Loading indicator */
+        #loading-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            z-index: 10001;
+            display: none;
+        }
+        
+        /* Make sure Flutter canvas takes full space */
+        canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+        
+        /* Hide all landing page when Flutter is ready */
+        body.flutter-loaded #landing-page {
+            display: none !important;
+        }
+        
+        body.flutter-loaded #flutter-container {
+            display: block !important;
+        }
+    </style>
 </head>
-<body>
 
-  <!-- Landing Page Wrapper -->
-  <div id="landing-wrapper">
-    <div id="redirect-message">
-        <p>Redirecting to main website...</p>
-        <div class="spinner"></div>
+<body>
+    <!-- Landing Page Content (visible first) -->
+    <div id="landing-page">
+        <!-- Splash Screen (shown immediately) -->
+        <div id="splash-screen">
+            <h1 class="splash-text">LET INNOVATIONS</h1>
+            <div class="splash-loading">innovation beyond the box...</div>
+        </div>
+        
+        <!-- Main Landing Content (shown after splash) -->
+        <div id="landing-content">
+            <div id="redirect-message">
+                <p>Redirecting to main website...</p>
+                <div class="spinner"></div>
+            </div>
+
+            <div class="oldpage" id="oldpage" style="display: none;">
+                <div class="sustain">
+                    <div class="newpage" id="newpage"></div>
+                    <div class="notagain">
+                        <button class="hely" onclick="closeReviewPage()" aria-label="Close product details modal">&times;</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="biggestbox" style="display: none;" id="biggestbox">
+                <div class="containerbox">
+                    <div id="product-modal" class="row11">  
+                    </div>
+                    <div class="row22">
+                        <div class="letinnovation">
+                            <h2 class="section-heading">Product Description</h2><hr>
+                            <p class="product-description" id="product-description"></p>
+                        </div>
+                        <div class="letinnovation2">
+                            <h2>Product Reviews</h2><hr>
+                            <div class="product-review" id="product-review"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <header>
+                <div class="header-top">
+                    <ul class="contact-info">
+                        <li>
+                            <a href="mailto:letinnovation69@gmail.com">📧 letinnovation69@gmail.com</a>
+                        </li>
+                        <li>
+                            <a href="tel:+2348100428881">📞 +2348100428881 (Whatsapp)</a>
+                        </li>
+                    </ul>
+                </div>
+            </header>
+
+            <nav class="navbar">
+                <div class="logo-section">
+                    <img src="img/let_symbol.png" alt="LET Symbol" class="logo-symbol">
+                    <img src="img/let_logo.png" alt="LET Logo" class="logo-text">
+                </div>
+
+                <form class="search-form" role="search">
+                    <input type="search" name="search" id="search" placeholder="Search products..."
+                        title="Search your favorite products">
+                    <button type="submit" aria-label="Search">SEARCH</button>
+                </form>
+                <ul class="nav-links">
+                    <li><a href="akolo.html">HOME</a></li>
+                    <li><a href="https://letinnovations.store/">LOGIN</a></li>
+                </ul>
+                <button class="mobile-menu-toggle" aria-label="Toggle menu">☰</button>
+            </nav>
+
+            <main>
+                <section class="products-section">
+                    <div class="products-container">
+                        <h1 class="section-title">POPULAR HARDWARE PRODUCTS</h1>
+                        <div class="product-grid" id="product-grid"> 
+                        </div>
+                    </div>
+                </section>
+                
+
+                <section class="services-section">
+                    <h2>LETI Professional Services</h2>
+                    <ul class="services-grid">
+                        <li><a href="https://letinnovations.store">Software Development (Web, App)</a></li>
+                        <li><a href="https://letinnovations.store">Embedded Systems - IoT & Automation</a></li>
+                        <li><a href="https://letinnovations.store">Phones and Systems Repair</a></li>
+                        <li><a href="https://letinnovations.store">Artificial Intelligence - Machine Learning</a></li>
+                        <li><a href="https://letinnovations.store">Solar and Inverter Systems Design</a></li>
+                        <li><a href="https://letinnovations.store">Co-Working Lab - Exclusive Workspace</a></li>
+                        <li><a href="https://letinnovations.store">Sales of Electronic Components</a></li>
+                        <li><a href="https://letinnovations.store">Computer Cafe Services</a></li>
+                        <li><a href="https://letinnovations.store">Other Services</a></li>
+                    </ul>
+                </section>
+
+                <section class="contact-section">
+                    <h2>Contact LET Innovations</h2>
+                    <p>Have questions? Drop your message below — we'll reply soon!</p>
+
+                    <form id="contact-form" class="contact-form">
+                        <div class="form-group">
+                            <label for="name">Name:</label>
+                            <input type="text" id="name" name="name" placeholder="Your full name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" name="email" placeholder="Your email address" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Message:</label>
+                            <textarea id="message" name="message" rows="5" placeholder="Type your message..."
+                                required></textarea>
+                        </div>
+
+                        <div id="drop-zone" class="drop-zone">
+                            <p>Drag & Drop files here or click to upload</p>
+                            <input type="file" id="file-input" multiple style="display: none;">
+                        </div>
+
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+
+                    <div id="contact-status" class="contact-status"></div>
+                </section>
+            </main>
+
+            <footer>
+                <div class="footer-content">
+                    <div class="newsletter-section">
+                        <h3>Subscribe to Our Newsletters</h3>
+                        <p>Get email updates about our latest discount offers and new products</p>
+                        <form class="newsletter-form">
+                            <input type="email" name="subscribe" placeholder="example@email.com" required>
+                            <button type="submit">SUBSCRIBE</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 LET Innovations. All rights reserved.</p>
+                </div>
+            </footer>
+        </div>
+    </div>
+    
+    <!-- Flutter Container (hidden initially) -->
+    <div id="flutter-container"></div>
+    
+    <!-- Loading indicator -->
+    <div id="loading-indicator">
+        Loading Flutter App...
     </div>
 
-    <header>
-      <div class="header-top">
-        <ul class="contact-info">
-          <li><a href="mailto:letinnovation69@gmail.com">📧 letinnovation69@gmail.com</a></li>
-          <li><a href="tel:+2348100428881">📞 +2348100428881 (Whatsapp)</a></li>
-        </ul>
-      </div>
-    </header>
-
-    <nav class="navbar">
-      <div class="logo-section">
-        <img src="img/let_symbol.png" alt="LET Symbol" class="logo-symbol">
-        <img src="img/let_logo.png" alt="LET Logo" class="logo-text">
-      </div>
-
-      <form class="search-form" role="search">
-        <input type="search" name="search" id="search" placeholder="Search products..." title="Search your favorite products">
-        <button type="submit" aria-label="Search">SEARCH</button>
-      </form>
-      <ul class="nav-links">
-        <li><a href="akolo.html">HOME</a></li>
-        <li><a href="https://letinnovations.store/">LOGIN</a></li>
-      </ul>
-      <button class="mobile-menu-toggle" aria-label="Toggle menu">☰</button>
-    </nav>
-
-    <main>
-      <section class="products-section">
-        <div class="products-container">
-          <h1 class="section-title">POPULAR HARDWARE PRODUCTS</h1>
-          <div class="product-grid" id="product-grid"></div>
-        </div>
-      </section>
-
-      <section class="services-section">
-        <h2>LETI Professional Services</h2>
-        <ul class="services-grid">
-          <li><a href="https://letinnovations.store">Software Development (Web, App)</a></li>
-          <li><a href="https://letinnovations.store">Embedded Systems - IoT & Automation</a></li>
-          <li><a href="https://letinnovations.store">Phones and Systems Repair</a></li>
-          <li><a href="https://letinnovations.store">Artificial Intelligence - Machine Learning</a></li>
-          <li><a href="https://letinnovations.store">Solar and Inverter Systems Design</a></li>
-          <li><a href="https://letinnovations.store">Co-Working Lab - Exclusive Workspace</a></li>
-          <li><a href="https://letinnovations.store">Sales of Electronic Components</a></li>
-          <li><a href="https://letinnovations.store">Computer Cafe Services</a></li>
-          <li><a href="https://letinnovations.store">Other Services</a></li>
-        </ul>
-      </section>
-
-      <section class="contact-section">
-        <h2>Contact LET Innovations</h2>
-        <p>Have questions? Drop your message below — we'll reply soon!</p>
-        <form id="contact-form" class="contact-form">
-          <div class="form-group">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" placeholder="Your full name" required>
-          </div>
-          <div class="form-group">
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" placeholder="Your email address" required>
-          </div>
-          <div class="form-group">
-            <label for="message">Message:</label>
-            <textarea id="message" name="message" rows="5" placeholder="Type your message..." required></textarea>
-          </div>
-          <div id="drop-zone" class="drop-zone">
-            <p>Drag & Drop files here or click to upload</p>
-            <input type="file" id="file-input" multiple style="display: none;">
-          </div>
-          <button type="submit" class="submit-btn">Send Message</button>
-        </form>
-        <div id="contact-status" class="contact-status"></div>
-      </section>
-    </main>
-
-    <footer>
-      <div class="footer-content">
-        <div class="newsletter-section">
-          <h3>Subscribe to Our Newsletters</h3>
-          <p>Get email updates about our latest discount offers and new products</p>
-          <form class="newsletter-form">
-            <input type="email" name="subscribe" placeholder="example@email.com" required>
-            <button type="submit">SUBSCRIBE</button>
-          </form>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>&copy; 2025 LET Innovations. All rights reserved.</p>
-      </div>
-    </footer>
-  </div>
-
-  <!-- Flutter Web Container -->
-  <div id="flutter-container"></div>
-
-  <!-- Load Flutter Web and fade in -->
-  <script>
-    var flutterScript = document.createElement('script');
-    flutterScript.src = "flutter_bootstrap.js";
-    flutterScript.async = true;
-
-    flutterScript.onload = function() {
-      if (window._flutter) {
-        window._flutter.loader.loadEntrypoint({
-          onEntrypointLoaded: function(engineInitializer) {
-            engineInitializer.initializeEngine().then(function(appRunner) {
-              // Fade out landing page
-              const landing = document.getElementById('landing-wrapper');
-              landing.classList.add('fade-out');
-
-              // Wait for fade-out transition
-              setTimeout(() => {
-                landing.remove();
-
-                // Run Flutter Web inside flutter-container
-                const container = document.getElementById('flutter-container');
-                container.classList.add('visible');
-                appRunner.runApp(container);
-              }, 1000);
-            });
-          }
+    <!-- Your landing page JS -->
+    <script src="letinnovation.js"></script>
+    
+    <!-- Main script to handle everything -->
+    <script>
+        // Wait for DOM to be ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded - showing landing page');
+            
+            // Show splash screen for 2 seconds, then show main landing content
+            setTimeout(function() {
+                const splash = document.getElementById('splash-screen');
+                const landingContent = document.getElementById('landing-content');
+                
+                // Fade out splash screen
+                splash.style.opacity = '0';
+                
+                // After fade out, hide splash and show landing content
+                setTimeout(function() {
+                    splash.style.display = 'none';
+                    landingContent.style.display = 'block';
+                    
+                    // Fade in landing content
+                    setTimeout(function() {
+                        landingContent.style.opacity = '1';
+                    }, 50);
+                    
+                    // Start loading Flutter in the background
+                    loadFlutterApp();
+                    
+                }, 500); // Wait for splash fade out
+                
+            }, 2000); // Show splash for 2 seconds
         });
-      }
-    };
-
-    document.body.appendChild(flutterScript);
-  </script>
-
-  <script src="letinnovation.js"></script>
+        
+        // Function to load Flutter app
+        function loadFlutterApp() {
+            console.log('Starting Flutter Web load in background...');
+            
+            // Show loading indicator after 3 seconds (if Flutter is taking a while)
+            const loadingTimeout = setTimeout(() => {
+                document.getElementById('loading-indicator').style.display = 'block';
+            }, 3000);
+            
+            // Check if Flutter bootstrap script exists
+            const flutterScript = document.createElement('script');
+            flutterScript.src = 'flutter_bootstrap.js';
+            
+            // Set up event listeners for Flutter loading
+            flutterScript.onload = function() {
+                console.log('Flutter bootstrap loaded');
+                
+                // Listen for Flutter's first frame event
+                window.addEventListener('flutter-first-frame', function() {
+                    console.log('Flutter first frame rendered - app is ready!');
+                    
+                    // Hide loading indicator
+                    clearTimeout(loadingTimeout);
+                    document.getElementById('loading-indicator').style.display = 'none';
+                    
+                    // Switch to Flutter app
+                    switchToFlutterApp();
+                });
+            };
+            
+            flutterScript.onerror = function() {
+                console.error('Failed to load Flutter bootstrap script');
+                clearTimeout(loadingTimeout);
+                document.getElementById('loading-indicator').style.display = 'none';
+                
+                // If Flutter fails, just keep showing landing page
+                // Optionally show an error message
+                const errorMsg = document.createElement('div');
+                errorMsg.style.cssText = 'position:fixed;bottom:20px;left:20px;background:red;color:white;padding:10px;border-radius:5px;z-index:10000;';
+                errorMsg.textContent = 'Flutter app failed to load. Showing website version.';
+                document.body.appendChild(errorMsg);
+                
+                // Remove error message after 5 seconds
+                setTimeout(() => errorMsg.remove(), 5000);
+            };
+            
+            // Add script to body to start loading
+            document.body.appendChild(flutterScript);
+            
+            // Also try to load the main Flutter script
+            const mainScript = document.createElement('script');
+            mainScript.src = 'main.dart.js';
+            mainScript.async = true;
+            document.body.appendChild(mainScript);
+        }
+        
+        // Function to switch from landing page to Flutter app
+        function switchToFlutterApp() {
+            console.log('Switching to Flutter app...');
+            
+            // Add loaded class to body
+            document.body.classList.add('flutter-loaded');
+            
+            // Force Flutter container to be visible
+            const flutterContainer = document.getElementById('flutter-container');
+            flutterContainer.style.display = 'block';
+            
+            // Find and ensure Flutter canvas is visible
+            setTimeout(() => {
+                const canvases = document.querySelectorAll('canvas');
+                canvases.forEach(canvas => {
+                    canvas.style.width = '100%';
+                    canvas.style.height = '100%';
+                    canvas.style.display = 'block';
+                    canvas.style.position = 'fixed';
+                    canvas.style.top = '0';
+                    canvas.style.left = '0';
+                    canvas.style.zIndex = '1000';
+                });
+                
+                console.log('Flutter app is now fully visible');
+                
+                // Clean up landing page resources after a delay
+                setTimeout(cleanupLandingPage, 1000);
+                
+            }, 100);
+        }
+        
+        // Clean up landing page resources
+        function cleanupLandingPage() {
+            const landingPage = document.getElementById('landing-page');
+            if (landingPage) {
+                // Remove all child nodes
+                while (landingPage.firstChild) {
+                    landingPage.removeChild(landingPage.firstChild);
+                }
+                // Remove the element itself
+                landingPage.remove();
+                
+                console.log('Landing page resources cleaned up');
+            }
+            
+            // Remove your landing page JS if it's still running intervals
+            // Note: This is tricky without knowing what letinnovation.js does
+            // You might need to add cleanup code in letinnovation.js itself
+            
+            // Force garbage collection if available
+            if (window.gc) {
+                window.gc();
+            }
+        }
+        
+        // Handle page visibility changes
+        document.addEventListener('visibilitychange', function() {
+            if (document.visibilityState === 'visible') {
+                // Page became visible again
+                if (document.body.classList.contains('flutter-loaded')) {
+                    // Make sure Flutter canvas is visible
+                    const canvases = document.querySelectorAll('canvas');
+                    canvases.forEach(canvas => {
+                        canvas.style.display = 'block';
+                    });
+                }
+            }
+        });
+    </script>
 </body>
 </html>
