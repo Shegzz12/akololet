@@ -35,16 +35,16 @@
     <link rel="icon" href="logo.png" sizes="512x512" type="image/png">
 
     <title>LET Innovations - Electronics, Computers, Gadgets, SmartPhones, Smart Devices, IoT, Raspberry pi, Arduino, Esp32 Components in Nigeria</title>
-    <!-- Updated manifest path to point to root folder -->
     <link rel="manifest" href="manifest.json">
 
-    <!-- Cloudinary Upload Widget -->
     <script src="https://upload-widget.cloudinary.com/latest/global/all.js" type="text/javascript"></script>
     
-    <!-- Google Sign-In for Web -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 
-    <!-- Light Mode Styles -->
+    <link rel="preload" href="main.dart.js" as="script">
+    <link rel="preload" href="flutter_assets/AssetManifest.json" as="fetch" crossorigin="anonymous">
+    <link rel="preload" href="flutter_assets/FontManifest.json" as="fetch" crossorigin="anonymous">
+    
     <style>
         * {
             margin: 0;
@@ -433,9 +433,7 @@
 </head>
 
 <body>
-    <!-- Landing Page Container -->
     <div id="landing-page-container">
-        <!-- Hide redirect message and splash screen so landing page content shows immediately -->
         <div id="redirect-message" style="display: none;">
             <p>Redirecting to main website...</p>
             <div class="spinner"></div>
@@ -578,18 +576,46 @@
         </footer>
     </div>
 
-    <!-- Flutter Container - Hidden Initially -->
     <div id="flutter-container" style="opacity: 0; transition: opacity 0.8s ease-in-out; pointer-events: none;">
-        <!-- Flutter app will be loaded here -->
-    </div>
+        </div>
 
-    <!-- Transition Script -->
     <script>
         var serviceWorkerVersion = null;
 
-        function initializeFlutterTransition() {
-            // Start loading the Flutter app once the document is ready.
-            window.addEventListener('load', function (ev) {
+        function transitionToFlutter() {
+            const landingContainer = document.getElementById('landing-page-container');
+            const flutterContainer = document.getElementById('flutter-container');
+
+            // Check if the transition has already happened
+            if (landingContainer && landingContainer.classList.contains('fade-out')) {
+                return;
+            }
+
+            // Start fade out of landing page
+            if (landingContainer) {
+                landingContainer.classList.add('fade-out');
+            }
+            
+            // Start fade in of Flutter
+            if (flutterContainer) {
+                flutterContainer.classList.add('fade-in');
+            }
+
+            // Completely remove landing page from DOM and prevent any interaction
+            // after the transition animation is complete (0.8s)
+            setTimeout(() => {
+                if (landingContainer) {
+                    landingContainer.remove();
+                }
+                // Ensure body is clean and Flutter has full control
+                document.body.style.overflow = 'auto';
+            }, 800);
+        }
+
+        // 🚀 CRITICAL CHANGE: Start loading the Flutter engine as soon as the DOM is available.
+        window.addEventListener('DOMContentLoaded', function() {
+            // Check if _flutter.loader is available before trying to use it
+            if (typeof _flutter !== 'undefined' && _flutter.loader) {
                 _flutter.loader.loadEntrypoint({
                     serviceWorker: {
                         serviceWorkerVersion: serviceWorkerVersion,
@@ -601,51 +627,29 @@
                         });
                         await appRunner.runApp();
                         
-                        // Now that Flutter is running, transition to it
+                        // Now that Flutter is running and has rendered its first frame, transition
                         transitionToFlutter();
                     }
                 });
-            });
-
-            // Fallback: transition after 15 seconds if Flutter doesn't load
-            setTimeout(() => {
-                const landingContainer = document.getElementById('landing-page-container');
-                if (landingContainer && !landingContainer.classList.contains('fade-out')) {
-                    transitionToFlutter();
-                }
-            }, 15000);
-        }
-
-        function transitionToFlutter() {
+            } else {
+                console.error("Flutter loader not found. Check flutter_bootstrap.js path and placement.");
+            }
+        });
+        
+        // Fallback: transition after 15 seconds if Flutter doesn't load
+        // This is kept as a safety net, but should ideally not be hit.
+        setTimeout(() => {
             const landingContainer = document.getElementById('landing-page-container');
-            const flutterContainer = document.getElementById('flutter-container');
-
-            // Start fade out of landing page
-            landingContainer.classList.add('fade-out');
-            
-            // Start fade in of Flutter
-            flutterContainer.classList.add('fade-in');
-
-            // Completely remove landing page from DOM and prevent any interaction
-            setTimeout(() => {
-                landingContainer.remove();
-                // Ensure body is clean and Flutter has full control
-                document.body.style.overflow = 'auto';
-            }, 800);
-        }
-
-        // Start monitoring when page loads
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initializeFlutterTransition);
-        } else {
-            initializeFlutterTransition();
-        }
+            if (landingContainer && !landingContainer.classList.contains('fade-out')) {
+                // We transition, but this might result in a blank screen if Flutter
+                // is still mid-load, so optimizing the above script is key.
+                transitionToFlutter();
+            }
+        }, 15000);
     </script>
 
-    <!-- Updated flutter_bootstrap script path to root folder -->
-    <script src="flutter_bootstrap.js"></script>
+    <script src="flutter_bootstrap.js" defer></script>
 
-    <!-- Load letinnovation.js for product loading functionality -->
     <script src="letinnovation.js"></script>
 </body>
 </html>
