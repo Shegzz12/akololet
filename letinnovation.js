@@ -1,428 +1,567 @@
-const cachedProducts = [];
-const BASE_URL = "https://letstore-backend-main-x0dezv.laravel.cloud";
-const API = `${BASE_URL}/api/products/all`;
-const PRIMARY_COLOR = "#6b4b9f";
-const MOBILE_STORE_URL = "https://letinnovations.store";
-const AUTH_TOKEN = "50|IOrMHx8J7IGbhjvgX2pgx9TFu830KDXagzunoidI812c2540";
-const modalDetails = document.getElementById('product-modal');
-const overall = document.getElementById('biggestbox');
-const product_description = document.getElementById('product-description');
-const product_review = document.getElementById('product-review');
-const oldpage = document.getElementById('oldpage');
-const newpage = document.getElementById('newpage');
-function formatCurrency(price) {
-    if (typeof price !== 'number') {return 'N 0.00'};
-    return price.toLocaleString("en-US", {
-        style: 'currency',
-        currency: 'NGN',
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-    }).replace('NGN', 'N');
-}
-/**
- * Generates the HTML string for the star rating.
- * @param {number} rating - The numerical rating (1-5).
- * @returns {string} HTML string with star symbols.
- */
-function generateStarRating(rating) {
-    const safeRating = Math.max(0, Math.min(5, Math.floor(rating)));
-    const filledStars = '★'.repeat(safeRating);
-    const emptyStars = '☆'.repeat(5 - safeRating);
-    return `<span class="ratingspan" >${filledStars}${emptyStars}</span>`;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base href="/">
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+    
+    <meta name="description"
+        content="LET Innovations - let innovation, Premium electronics components, IoT devices, Arduino, ESP32, Raspberry Pi, sensors, and embedded systems. Expert tech solutions for hardware, software development, IoT automation, AI/ML, and solar systems in Minna, Nigeria.">
+    <meta name="keywords"
+        content="LET Innovations Minna, let innovation, drone, gps module, ultrasonic sensor, electronics, Arduino, ESP32, Raspberry Pi, IoT, embedded systems, sensors, smartwatch, electronics repair, software development, AI/ML, solar systems, Nigeria">
+    <meta name="author" content="LET Innovations">
+    <meta name="theme-color" content="#6b4b9f">
+    <meta property="og:title" content="LET Innovations - Electronics & IoT Solutions">
+    <meta property="og:description"
+        content="Professional electronics, IoT devices, and embedded systems solutions. AI-driven tech for smarter living. Shop premium components and expert services.">
+    <meta property="og:image" content="img/let_logo.png">
+    <meta property="og:type" content="business.business">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="LET Innovations - Electronics & IoT Solutions">
+    <meta name="twitter:description" content="Professional electronics and IoT solutions">
+    <link rel="canonical" href="https://letinnovations.store">
+    
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="let_store_recreated">
+    <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
-function getAuthHeaders(contentType = 'application/json') {
-    if (!AUTH_TOKEN) {
-        console.warn("Authentication required. Bearer Token missing.");
-        alert("Please sign in to proceed.");
-        return null;
-    }
-    return {
-        'Content-Type': contentType,
-        'Authorization': `Bearer ${AUTH_TOKEN}`
-    };
-}
+    <link rel="icon" href="logo.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="logo.png" sizes="16x16" type="image/png">
+    <link rel="icon" href="logo.png" sizes="192x192" type="image/png">
+    <link rel="icon" href="logo.png" sizes="512x512" type="image/png">
 
+    <title>LET Innovations - Electronics, Computers, Gadgets, SmartPhones, Smart Devices, IoT, Raspberry pi, Arduino, Esp32 Components in Nigeria</title>
+    <!-- Updated manifest path to point to root folder -->
+    <link rel="manifest" href="manifest.json">
 
-function getProductDataById(productId) {
-    return cachedProducts.find(p => String(p.id) === String(productId));
-}
+    <!-- Cloudinary Upload Widget -->
+    <script src="https://upload-widget.cloudinary.com/latest/global/all.js" type="text/javascript"></script>
+    
+    <!-- Google Sign-In for Web -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
 
+    <!-- Light Mode Styles -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-function createProductCardHTML(product) {
-    const priceValue = product.price || 0;
-    const formattedPrice = priceValue.toLocaleString("en-US", {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-    });
-    const uniqueId = product.id.toString();
-    return `
-        <div role="button" class="boxes product-card" data-action="box" data-product-id="${uniqueId}"  tabindex="0" aria-label="View product details for ${product.name}">
-            <p class="par1">EXCLUSIVE DISCOUNT | ${product.discount}%</p>
-            <img src="${product.image_urls[0]}" alt="${product.category || "Product"}" class="imgsrc">
-            <div class="short">
-                <h1 class="mrname">${product.name || "Product Not Named"}</h1>
-            </div>
-            <p class="par3">N ${formattedPrice}</p>
-            <button class = "sub" data-action="shop-now" data-product-id="${uniqueId}">PRODUCT DETAILS</button>
+        body {
+            background-color: #ffffff;
+            color: #1a1a1a;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: opacity 0.3s ease;
+        }
+
+        /* Landing Page Container */
+        #landing-page-container {
+            opacity: 1;
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        #landing-page-container.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Flutter Container */
+        #flutter-container {
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+            pointer-events: none;
+        }
+
+        #flutter-container.fade-in {
+            opacity: 1 !important;
+            pointer-events: auto;
+        }
+
+        /* Header */
+        .header {
+            background-color: #f8f8f8;
+            padding: 12px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-symbol, .logo-text {
+            max-height: 50px;
+            width: auto;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            transition: color 0.3s;
+        }
+
+        .action-btn:hover {
+            color: #6b4b9f;
+        }
+
+        .theme-icon {
+            fill: currentColor;
+        }
+
+        /* Banner Carousel */
+        .banner-section {
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+
+        .banner-carousel {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .banner-slide {
+            min-width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .banner-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .banner-content {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .banner-title {
+            font-size: 24px;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+        }
+
+        .banner-subtitle {
+            font-size: 16px;
+            color: #6b4b9f;
+        }
+
+        .banner-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.8);
+            border: none;
+            border-radius: 50%;
+            padding: 8px;
+            cursor: pointer;
+        }
+
+        .banner-nav.prev {
+            left: 10px;
+        }
+
+        .banner-nav.next {
+            right: 10px;
+        }
+
+        .banner-indicators {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .banner-indicator {
+            width: 10px;
+            height: 10px;
+            background-color: #ddd;
+            border-radius: 50%;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+
+        .banner-indicator.active {
+            background-color: #6b4b9f;
+        }
+
+        /* Items You Like Section */
+        .product-section {
+            margin-bottom: 40px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            color: #1a1a1a;
+            text-align: center;
+        }
+
+        .see-all-btn {
+            padding: 10px 20px;
+            background-color: #6b4b9f;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .see-all-btn:hover {
+            background-color: #553a7d;
+        }
+
+        .product-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .product-item {
+            background: #f8f8f8;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .product-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        /* Category Sections (dynamically generated) */
+        #category-sections {
+            margin-bottom: 40px;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            padding: 40px 20px;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .footer-section {
+            flex: 1;
+        }
+
+        .footer-section h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 8px;
+        }
+
+        .footer-section ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section ul li a:hover {
+            color: #6b4b9f;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            color: #aaa;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+            }
+
+            .header-actions {
+                margin-top: 15px;
+                justify-content: center;
+            }
+
+            .banner-slide {
+                padding: 10px;
+            }
+
+            .banner-indicators {
+                margin-top: 10px;
+            }
+        }
+    </style>
+
+    <link rel="stylesheet" href="letinnovation.css">
+</head>
+
+<body>
+    <!-- Landing Page Container -->
+    <div id="landing-page-container">
+        <!-- Splash Screen -->
+        <div id="splash-screen" class="splash-screen">
+            <img src="assets/images/let_symbol.png" alt="Let Innovation" class="splash-logo">
+            <div class="splash-loader"></div>
         </div>
-    `;
-}
 
-
-function closeProductDetails() {
-    if (overall) {
-        overall.style.display = 'none';
-        document.body.style.overflow = '';
-    }
-}
-function closeReviewPage() {
-    if (oldpage) {
-        oldpage.style.display = 'none';
-        document.body.style.overflow = '';
-    }
-}
-
-function loadProductData(HELD) {
-        modalDetails.innerHTML = 
-        `
-        <div class="col1">
-            <img src="${HELD.image_urls[0]}" alt="${HELD.name}" class="product-image-area">
-        </div>
-
-        <div class="col2" data-product-id="${HELD.id}">
+        <!-- Main Content -->
+        <div class="main-wrapper">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-content">
+                    <div class="logo-section">
+                        <img src="assets/images/let_symbol.png" alt="Let Symbol" class="logo-symbol">
+                        <img src="assets/images/let_logo.png" alt="Let Innovation" class="logo-text">
+                    </div>
                     
-            <h1 class="product-name">${HELD.name}</h1>
-            <span class="priceh">
-                <span class = "discount"> ${HELD.discount}% </span> OFF 
-                <span class="costprice">
-                    <span class="naira">N</span>${Math.round((100 * HELD.price)/(100 - HELD.discount),2)}
-                </span> =>
-                <span class="sellingprice">
-                    <span class="naira1">N</span> ${HELD.price}
-                </span>
-            </span><br>
-            <div class="hellobuttons">  
-                <button id="add-to-cart-btn" 
-                    class="btn" data-action="redirect-cart" data-product-id="${HELD.id}">SHOP NOW
-                </button>
-                <button class="button-reviewer" data-action="oldpage" data-product-id="${HELD.id}">PRODUCT REVIEW</button>
-            </div>       
+                    <div class="header-actions">
+                        <button class="action-btn" id="search-btn" aria-label="Search">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <path d="m21 21-4.35-4.35"></path>
+                            </svg>
+                        </button>
+                        <button class="action-btn" id="notifications-btn" aria-label="Notifications">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                            </svg>
+                        </button>
+                        <button class="action-btn" id="theme-toggle" aria-label="Toggle theme">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="theme-icon">
+                                <circle cx="12" cy="12" r="5"></circle>
+                                <line x1="12" y1="1" x2="12" y2="3"></line>
+                                <line x1="12" y1="21" x2="12" y2="23"></line>
+                                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                                <line x1="1" y1="12" x2="3" y2="12"></line>
+                                <line x1="21" y1="12" x2="23" y2="12"></line>
+                                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Banner Carousel -->
+            <section class="banner-section">
+                <div class="banner-carousel">
+                    <div class="banner-slide active">
+                        <img src="assets/images/tech1.jpg" alt="Sharp Deals" class="banner-image">
+                        <div class="banner-content">
+                            <h2 class="banner-title">Sharp Deals</h2>
+                            <p class="banner-subtitle">Just for You</p>
+                        </div>
+                    </div>
+                    <div class="banner-slide">
+                        <img src="assets/images/tech4.png" alt="Premium Tech" class="banner-image">
+                        <div class="banner-content">
+                            <h2 class="banner-title">Premium Tech</h2>
+                            <p class="banner-subtitle">Waiting For You</p>
+                        </div>
+                    </div>
+                    <div class="banner-slide">
+                        <img src="assets/images/elect_store.jpg" alt="Research Resources" class="banner-image">
+                        <div class="banner-content">
+                            <h2 class="banner-title">Research Resources</h2>
+                            <p class="banner-subtitle">Exclusively For You</p>
+                        </div>
+                    </div>
+                    <div class="banner-slide">
+                        <img src="assets/images/tech3.jpg" alt="Smart Devices" class="banner-image">
+                        <div class="banner-content">
+                            <h2 class="banner-title">Smart Devices</h2>
+                            <p class="banner-subtitle">With AI Available</p>
+                        </div>
+                    </div>
+                    <div class="banner-slide">
+                        <img src="assets/images/laptop.jpg" alt="Smart Tech" class="banner-image">
+                        <div class="banner-content">
+                            <h2 class="banner-title">Smart Tech</h2>
+                            <p class="banner-subtitle">For Every Day</p>
+                        </div>
+                    </div>
+                    <div class="banner-slide">
+                        <img src="assets/images/tech6.png" alt="Explore New Tech" class="banner-image">
+                        <div class="banner-content">
+                            <h2 class="banner-title">Explore New Tech</h2>
+                            <p class="banner-subtitle">Smart. Fast. Reliable</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="banner-nav prev" aria-label="Previous slide">‹</button>
+                <button class="banner-nav next" aria-label="Next slide">›</button>
+                <div class="banner-indicators"></div>
+            </section>
+
+            <!-- Items You Like Section -->
+            <section class="product-section">
+                <div class="section-header">
+                    <h2 class="section-title">Items You Like</h2>
+                    <button class="see-all-btn" data-category="popular">See All</button>
+                </div>
+                <div class="product-list" id="popular-products"></div>
+            </section>
+
+            <!-- Category Sections (dynamically generated) -->
+            <div id="category-sections"></div>
+
+            <!-- Footer -->
+            <footer class="footer">
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <h3>About Us</h3>
+                        <p>Your trusted source for innovative technology and electronics.</p>
+                    </div>
+                    <div class="footer-section">
+                        <h3>Quick Links</h3>
+                        <ul>
+                            <li><a href="#about">About</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                            <li><a href="#terms">Terms</a></li>
+                            <li><a href="#privacy">Privacy</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h3>Contact</h3>
+                        <p>Email: info@letinnovations.store</p>
+                        <p>Phone: +234 XXX XXX XXXX</p>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 Let Innovation. All rights reserved.</p>
+                </div>
+            </footer>
         </div>
-        <div class="col3">
-            <button class="modal-close-btn" onclick="closeProductDetails()" aria-label="Close product details modal">&times;</button>
-        </div>
-        `;
-        
-        if (modalDetails) {
-        setupProductActionDelegation(modalDetails);
-    }
-}
 
-
-let reviewsArray;
-async function welcomehome(HELD) {
-    const reviewUrl = `${BASE_URL}/api/products/${HELD.id}/reviews`;
-    let reviewData;
-    try {
-        const response = await fetch(reviewUrl);
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        // Assign the fetched data to reviewData
-        reviewData = await response.json(); 
-        
-    } catch (error) {
-        console.log("error fetching products and product review", error);
-    return;
-    }
-
-    reviewsArray = reviewData?.reviews ?? [];
-    renderReviews(reviewsArray);
-}
-
-
-/**
- * Generates the HTML for a single review item using the styled structure.
- * This maps a single data object to the structured HTML.
- * @param {object} HELP - A single review object {reviewerName, city, score, comment}
- * @returns {string} The HTML string for one review.
- */
-function reviewPart(WELCOME) {  
-    const star = generateStarRating(WELCOME.rating);
-    if (oldpage) {
-        setupProductActionDelegation(oldpage);
-    }
-    return `
-        <div class="column111">
-            <div>
-                <h4 id="firstname">${WELCOME.user.firstname}</h4>
-                <p id="firstcity">${WELCOME.user.city}</p>
-                <div id="starrating">${star}</div>
+        <!-- Product Modal -->
+        <div id="product-modal" class="modal">
+            <div class="modal-overlay" onclick="closeProductModal()"></div>
+            <div class="modal-content">
+                <button class="modal-close" onclick="closeProductModal()">&times;</button>
+                <div id="modal-details"></div>
             </div>
-            <div class="whatsyourname">
-                <p id="review-comment">${WELCOME.comment}</p>
-            </div>
         </div>
-    `
-}
-/**
- * Takes an array of reviews, maps them to HTML, and injects them into the container.
- * This is the core mapping structure you requested.
- * @param {Array<object>} reviewsArray - An array of review objects.
- */
-function renderReviews(reviewsArray) {
-    product_review.innerHTML = '';
 
-    const allReviewsHTML = reviewsArray.map(HELP => {
-        return reviewPart(HELP);
-    }).join(''); 
-    product_review.innerHTML = allReviewsHTML;
-    akolo(product_review);  
-}
-function akolo(nehemiah){
-    newpage.innerHTML = nehemiah.innerHTML;
-}
-function oldPage() {
-    if (oldpage) {
-        oldpage.style.display = 'block';
-        document.body.style.overflow = 'hidden';
-    }
-}
-function openProductDetails(HELLO) {
-    welcomehome(HELLO);
-    loadProductData(HELLO);
-    product_description.innerHTML = HELLO.description;
-    if (overall) {
-        overall.style.display = 'block'; 
-        document.body.style.overflow = 'hidden';
-    }
-
-}
-
-
-
-window.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') {
-        closeReviewPage();
-    }
-});
-
-/**
- * Central event delegation function to handle clicks on the product grid and modal buttons.
- * @param {HTMLElement} PG - The parent container to attach the listener to.
- */
-function setupProductActionDelegation(PG) {
-    if (!PG || PG.__listener_set) {
-        if (!PG.__listener_set || PG.id !== 'biggestbox') return;
-    }
-    
-    PG.addEventListener('click', (e) => {
-        const clickable = e.target.closest('[data-action][data-product-id]');
-        if (!clickable) return;
-
-        const action = clickable.getAttribute("data-action");
-        const productId = clickable.getAttribute("data-product-id");
-        if (!productId) {
-            console.error("Product ID not found on clickable element.", clickable);
-            return;
-        }
-
-        const productData = getProductDataById(productId);
-        if (!productData) {
-            console.warn(`Product Id ${productId} not found in cache.`);
-            alert("Product data not available. Please try again.");
-            return;
-        }
-       
-        if (action === 'box') {
-            e.preventDefault(); 
-            openProductDetails(productData);
-
-        } else if (action === 'shop-now') {
-            e.preventDefault();
-            openProductDetails(productData);
-
-        } else if (action === 'redirect-cart') {
-            e.preventDefault();
-            const messageDiv = document.getElementById('redirect-message');
-            messageDiv.classList.add('message-visible');
-            setTimeout(() => {
-                messageDiv.classList.remove('message-visible');
-                window.location.href = MOBILE_STORE_URL;
-            }, 2000); 
-        } else if (action === 'oldpage') {
-            e.preventDefault();
-            oldPage();
-        }
-    });
-
-    PG.__listener_set = true;
-}
-
-
-async function loadProducts(PG) {
-    PG.innerHTML = `
-        <div style="grid-column: 1/-1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px; text-align: center;">
-            <div class="loader" style="border: 4px solid #f3f3f3; border-top: 4px solid ${PRIMARY_COLOR}; border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite;"></div>
-            <p style="font-size: 1.1em; margin-top: 15px; font-weight: 600; color:${PRIMARY_COLOR};">LOADING PRODUCTS...</p>
+        <!-- Redirect Message -->
+        <div id="redirect-message" class="redirect-message" style="display: none;">
+            Redirecting to mobile store...
         </div>
-        <style>@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }</style>
-    `;
+    </div>
 
-    try {
-        const response = await fetch(API, { headers: { Accept: "application/json" } });
-        
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status} (Check API endpoint)`);
-        }
-        
-        const fullResponse = await response.json();
-        const products = fullResponse.data || [];
-        cachedProducts.length = 0;
-        cachedProducts.push(...products);
+    <!-- Flutter Container - Hidden Initially -->
+    <div id="flutter-container" style="opacity: 0; transition: opacity 0.8s ease-in-out; pointer-events: none;">
+        <!-- Flutter app will be loaded here -->
+    </div>
 
-        if (!Array.isArray(products) || products.length === 0) {
-            PG.innerHTML = '<p style="color: black; text-align: center; font-size: 1.2rem; padding: 40px; grid-column: 1/-1;">No products available at the moment.</p>';
-            return; 
-        }
-        
-        PG.innerHTML = products.map(createProductCardHTML).join("");
+    <!-- Transition Script -->
+    <script>
+        var serviceWorkerVersion = null;
 
-        setupProductActionDelegation(PG); 
-    } catch (error) {
-        console.error("Error loading products:", error);
-        PG.innerHTML = `<p style="text-align: center; color: red; padding: 40px; grid-column: 1/-1;">Error loading products. ${error.message} product, pls check your internet connection</p>`;
-    }
-}
+        function initializeFlutterTransition() {
+            // Start loading the Flutter app once the document is ready.
+            window.addEventListener('load', function (ev) {
+                _flutter.loader.loadEntrypoint({
+                    serviceWorker: {
+                        serviceWorkerVersion: serviceWorkerVersion,
+                    },
+                    onEntrypointLoaded: async function(engineInitializer) {
+                        let appRunner = await engineInitializer.initializeEngine({
+                            renderer: "html",
+                        });
+                        await appRunner.runApp();
+                        
+                        // Now that Flutter is running, transition to it
+                        transitionToFlutter();
+                    }
+                });
+            });
 
-
-document.addEventListener("DOMContentLoaded", () => {
-    const menuToggle = document.querySelector(".mobile-menu-toggle");
-    const navLinks = document.querySelector(".nav-links");
-    const searchForm = document.querySelector(".search-form");
-    const PG = document.querySelector(".product-grid"); 
-    document.body.addEventListener("click", (e) => {
-        const tag = e.target.tagName.toLowerCase();
-        const interactiveTags = ["input", "textarea", "button", "select", "label", "a"];
-        if (!interactiveTags.includes(tag) && !e.target.closest('.boxes') && !e.target.closest('.nav-links') && !e.target.closest('.search-form')) {
-        }
-    });
-
-    if (menuToggle) {
-        menuToggle.addEventListener("click", () => {
-            navLinks.classList.toggle("active");
-        });
-    }
-
-    document.querySelectorAll(".nav-links a").forEach((link) => {
-        link.addEventListener("click", () => {
-            navLinks.classList.remove("active");
-        });
-    });
-
-    let touchStartY = 0;
-    let touchEndY = 0;
-    const swipeThreshold = 50;
-
-    function handleSwipe() {
-        const swipeDistance = touchStartY - touchEndY;
-        if (swipeDistance < -swipeThreshold) {
-            searchForm.classList.remove("search-hidden");
-        }
-    }
-    document.addEventListener("touchstart", (e) => {
-        touchStartY = e.changedTouches[0].screenY;
-    }, { passive: true });
-    document.addEventListener("touchend", (e) => {
-        touchEndY = e.changedTouches[0].screenY;
-        handleSwipe();
-    }, { passive: true });
-
-    let lastScrollY = 0;
-    let scrollDirection = "up";
-    let ticking = false;
-    function updateSearchVisibility() {
-        const currentScrollY = window.scrollY;
-        const isScrollingDown = currentScrollY > lastScrollY;
-        if (isScrollingDown && scrollDirection !== "down") {
-            scrollDirection = "down";
-            searchForm.classList.add("search-hidden");
-        } else if (!isScrollingDown && scrollDirection !== "up") {
-            scrollDirection = "up";
-            searchForm.classList.remove("search-hidden");
-        }
-        lastScrollY = currentScrollY;
-        ticking = false;
-    }
-    window.addEventListener("scroll", () => {
-        if (!ticking) {
-            window.requestAnimationFrame(updateSearchVisibility);
-            ticking = true;
-        }
-    }, { passive: true });
-    const dropZone = document.getElementById("drop-zone");
-    const fileInput = document.getElementById("file-input");
-
-    if (dropZone && fileInput) { 
-        dropZone.addEventListener("click", () => fileInput.click());
-        dropZone.addEventListener("dragover", (e) => {
-            e.preventDefault();
-            dropZone.classList.add("drag-over");
-        });
-        dropZone.addEventListener("dragleave", () => {
-            dropZone.classList.remove("drag-over");
-        });
-        dropZone.addEventListener("drop", (e) => {
-            e.preventDefault();
-            dropZone.classList.remove("drag-over");
-            fileInput.files = e.dataTransfer.files; 
-        });
-    }
-
-    const contactForm = document.getElementById("contact-form");
-    const contactStatus = document.getElementById("contact-status");
-
-    if (contactForm && contactStatus) { 
-        contactForm.addEventListener("submit", (e) => {
-            e.preventDefault();
-            contactStatus.textContent = "✅ Message sent successfully! We'll reply soon.";
-            contactStatus.classList.remove("error");
-            contactStatus.classList.add("success");
-            contactForm.reset();
+            // Fallback: transition after 15 seconds if Flutter doesn't load
             setTimeout(() => {
-                contactStatus.classList.remove("success");
-                contactStatus.textContent = "";
-            }, 5000);
-        });
-    }
-
-    const splash = document.getElementById("splash-screen");
-    const pagePath = window.location.pathname.toLowerCase();
-    
-    const isProductPage = pagePath.endsWith('index.html') || pagePath === '/' || pagePath.endsWith('/');
-
-
-    function finalLoadAction() {
-        if (isProductPage && PG) {
-            loadProducts(PG);
+                const landingContainer = document.getElementById('landing-page-container');
+                if (landingContainer && !landingContainer.classList.contains('fade-out')) {
+                    transitionToFlutter();
+                }
+            }, 15000);
         }
-    }
 
-    const splashDuration = 2000;
-    const fadeDuration = 1000;
+        function transitionToFlutter() {
+            const landingContainer = document.getElementById('landing-page-container');
+            const flutterContainer = document.getElementById('flutter-container');
 
-    if (splash) {
-        setTimeout(() => {
-            splash.classList.add("fade-out");
+            // Start fade out of landing page
+            landingContainer.classList.add('fade-out');
+            
+            // Start fade in of Flutter
+            flutterContainer.classList.add('fade-in');
+
+            // Completely remove landing page from DOM and prevent any interaction
             setTimeout(() => {
-                splash.style.display = "none";
-                finalLoadAction();
-            }, fadeDuration);
-        }, splashDuration);
-    } else {
-        finalLoadAction();
-    }
-});
+                landingContainer.remove();
+                document.body.style.overflow = 'auto';
+            }, 800);
+        }
+
+        // Start monitoring when page loads
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeFlutterTransition);
+        } else {
+            initializeFlutterTransition();
+        }
+    </script>
+
+    <script src="flutter_bootstrap.js"></script>
+    <script src="letinnovation.js"></script>
+</body>
+</html>
