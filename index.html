@@ -35,16 +35,16 @@
     <link rel="icon" href="logo.png" sizes="512x512" type="image/png">
 
     <title>LET Innovations - Electronics, Computers, Gadgets, SmartPhones, Smart Devices, IoT, Raspberry pi, Arduino, Esp32 Components in Nigeria</title>
+    <!-- Updated manifest path to point to root folder -->
     <link rel="manifest" href="manifest.json">
 
+    <!-- Cloudinary Upload Widget -->
     <script src="https://upload-widget.cloudinary.com/latest/global/all.js" type="text/javascript"></script>
     
+    <!-- Google Sign-In for Web -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 
-    <link rel="preload" href="main.dart.js" as="script">
-    <link rel="preload" href="flutter_assets/AssetManifest.json" as="fetch" crossorigin="anonymous">
-    <link rel="preload" href="flutter_assets/FontManifest.json" as="fetch" crossorigin="anonymous">
-    
+    <!-- Light Mode Styles -->
     <style>
         * {
             margin: 0;
@@ -83,46 +83,20 @@
         }
 
         /* Header */
-        header {
+        .header {
             background-color: #f8f8f8;
             padding: 12px 0;
             border-bottom: 1px solid #e0e0e0;
         }
 
-        .header-top {
+        .header-content {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
-        }
-
-        .contact-info {
-            list-style: none;
-            display: flex;
-            gap: 30px;
-            flex-wrap: wrap;
-        }
-
-        .contact-info a {
-            color: #333333;
-            text-decoration: none;
-            font-size: 14px;
-            transition: color 0.3s;
-        }
-
-        .contact-info a:hover {
-            color: #6b4b9f;
-        }
-
-        /* Navbar */
-        .navbar {
-            background-color: #ffffff;
-            padding: 15px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             gap: 20px;
-            border-bottom: 1px solid #e0e0e0;
-            flex-wrap: wrap;
         }
 
         .logo-section {
@@ -136,23 +110,127 @@
             width: auto;
         }
 
-        .search-form {
+        .header-actions {
             display: flex;
-            gap: 8px;
-            flex: 1;
-            min-width: 250px;
+            gap: 10px;
         }
 
-        .search-form input {
-            flex: 1;
-            padding: 10px 12px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            background-color: #ffffff;
-            color: #333;
+        .action-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            transition: color 0.3s;
         }
 
-        .search-form button {
+        .action-btn:hover {
+            color: #6b4b9f;
+        }
+
+        .theme-icon {
+            fill: currentColor;
+        }
+
+        /* Banner Carousel */
+        .banner-section {
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+
+        .banner-carousel {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .banner-slide {
+            min-width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .banner-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .banner-content {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .banner-title {
+            font-size: 24px;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+        }
+
+        .banner-subtitle {
+            font-size: 16px;
+            color: #6b4b9f;
+        }
+
+        .banner-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.8);
+            border: none;
+            border-radius: 50%;
+            padding: 8px;
+            cursor: pointer;
+        }
+
+        .banner-nav.prev {
+            left: 10px;
+        }
+
+        .banner-nav.next {
+            right: 10px;
+        }
+
+        .banner-indicators {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .banner-indicator {
+            width: 10px;
+            height: 10px;
+            background-color: #ddd;
+            border-radius: 50%;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+
+        .banner-indicator.active {
+            background-color: #6b4b9f;
+        }
+
+        /* Items You Like Section */
+        .product-section {
+            margin-bottom: 40px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            color: #1a1a1a;
+            text-align: center;
+        }
+
+        .see-all-btn {
             padding: 10px 20px;
             background-color: #6b4b9f;
             color: white;
@@ -160,57 +238,14 @@
             border-radius: 4px;
             cursor: pointer;
             font-weight: 600;
+            transition: background-color 0.3s;
         }
 
-        .search-form button:hover {
+        .see-all-btn:hover {
             background-color: #553a7d;
         }
 
-        .nav-links {
-            list-style: none;
-            display: flex;
-            gap: 25px;
-        }
-
-        .nav-links a {
-            color: #333333;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: #6b4b9f;
-        }
-
-        .mobile-menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            color: #333;
-        }
-
-        /* Main Content */
-        main {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        .section-title {
-            font-size: 28px;
-            color: #1a1a1a;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-
-        .products-container {
-            margin-bottom: 50px;
-        }
-
-        .product-grid {
+        .product-list {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 20px;
@@ -230,124 +265,13 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
 
-        /* Services Section */
-        .services-section {
-            background-color: #f8f8f8;
-            padding: 40px 20px;
-            border-radius: 8px;
+        /* Category Sections (dynamically generated) */
+        #category-sections {
             margin-bottom: 40px;
         }
 
-        .services-section h2 {
-            font-size: 24px;
-            color: #1a1a1a;
-            margin-bottom: 25px;
-            text-align: center;
-        }
-
-        .services-grid {
-            list-style: none;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .services-grid a {
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 8px;
-            text-decoration: none;
-            color: #333333;
-            border: 1px solid #e0e0e0;
-            transition: all 0.3s;
-        }
-
-        .services-grid a:hover {
-            background-color: #6b4b9f;
-            color: white;
-            border-color: #6b4b9f;
-        }
-
-        /* Contact Section */
-        .contact-section {
-            margin-bottom: 50px;
-        }
-
-        .contact-section h2 {
-            font-size: 24px;
-            color: #1a1a1a;
-            margin-bottom: 15px;
-        }
-
-        .contact-form {
-            background-color: #f8f8f8;
-            padding: 30px;
-            border-radius: 8px;
-            margin-top: 20px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: #333333;
-            font-weight: 500;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            background-color: #ffffff;
-            color: #333;
-            font-family: inherit;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #6b4b9f;
-            box-shadow: 0 0 0 2px rgba(107, 75, 159, 0.1);
-        }
-
-        .drop-zone {
-            border: 2px dashed #6b4b9f;
-            padding: 30px;
-            text-align: center;
-            border-radius: 8px;
-            cursor: pointer;
-            background-color: #ffffff;
-            margin-bottom: 20px;
-            transition: background-color 0.3s;
-        }
-
-        .drop-zone:hover {
-            background-color: #f0f0f0;
-        }
-
-        .submit-btn {
-            background-color: #6b4b9f;
-            color: white;
-            padding: 12px 30px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 600;
-            transition: background-color 0.3s;
-        }
-
-        .submit-btn:hover {
-            background-color: #553a7d;
-        }
-
         /* Footer */
-        footer {
+        .footer {
             background-color: #1a1a1a;
             color: #ffffff;
             padding: 40px 20px;
@@ -357,40 +281,37 @@
         .footer-content {
             max-width: 1200px;
             margin: 0 auto;
-            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
         }
 
-        .newsletter-section h3 {
+        .footer-section {
+            flex: 1;
+        }
+
+        .footer-section h3 {
             font-size: 20px;
             margin-bottom: 15px;
         }
 
-        .newsletter-form {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
         }
 
-        .newsletter-form input {
-            flex: 1;
-            padding: 12px;
-            border: none;
-            border-radius: 4px;
-            color: #333;
+        .footer-section ul li {
+            margin-bottom: 8px;
         }
 
-        .newsletter-form button {
-            padding: 12px 25px;
-            background-color: #6b4b9f;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 600;
+        .footer-section ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s;
         }
 
-        .newsletter-form button:hover {
-            background-color: #553a7d;
+        .footer-section ul li a:hover {
+            color: #6b4b9f;
         }
 
         .footer-bottom {
@@ -401,30 +322,21 @@
         }
 
         @media (max-width: 768px) {
-            .navbar {
+            .header-content {
                 flex-direction: column;
             }
 
-            .nav-links {
-                flex-direction: column;
-                gap: 15px;
-                text-align: center;
+            .header-actions {
+                margin-top: 15px;
+                justify-content: center;
             }
 
-            .search-form {
-                min-width: 100%;
+            .banner-slide {
+                padding: 10px;
             }
 
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .newsletter-form {
-                flex-direction: column;
-            }
-
-            .mobile-menu-toggle {
-                display: block;
+            .banner-indicators {
+                margin-top: 10px;
             }
         }
     </style>
@@ -433,223 +345,223 @@
 </head>
 
 <body>
+    <!-- Landing Page Container -->
     <div id="landing-page-container">
-        <div id="redirect-message" style="display: none;">
-            <p>Redirecting to main website...</p>
-            <div class="spinner"></div>
+        <!-- Splash Screen -->
+        <div id="splash-screen" class="splash-screen">
+            <img src="assets/images/let_symbol.png" alt="Let Innovation" class="splash-logo">
+            <div class="splash-loader"></div>
         </div>
 
-        <div id="splash-screen" style="display: none;">
-            <h1 class="splash-text">LET INNOVATIONS</h1>
-            <div class="splash-loading">innovation beyond the box...</div>
-        </div>
-
-        <div class="oldpage" id="oldpage" style="display: none;">
-            <div class="sustain">
-                <div class="newpage" id="newpage">
-                </div>
-                <div class="notagain">
-                    <button class="hely" onclick="closeReviewPage()" aria-label="Close product details modal">&times;</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="biggestbox" style="display: none;" id="biggestbox">
-            <div class="containerbox">
-                <div id="product-modal" class="row11">  
-                </div>
-                <div class="row22">
-                    <div class="letinnovation">
-                        <h2 class="section-heading">Product Description</h2><hr>
-                        <p class="product-description" id="product-description"></p>
+        <!-- Main Content -->
+        <div class="main-wrapper">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-content">
+                    <div class="logo-section">
+                        <img src="assets/images/let_symbol.png" alt="Let Symbol" class="logo-symbol">
+                        <img src="assets/images/let_logo.png" alt="Let Innovation" class="logo-text">
                     </div>
-                    <div class="letinnovation2">
-                        <h2>Product Reviews</h2><hr>
-                        <div class="product-review" id="product-review"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <header>
-            <div class="header-top">
-                <ul class="contact-info">
-                    <li>
-                        <a href="mailto:letinnovation69@gmail.com">📧 letinnovation69@gmail.com</a>
-                    </li>
-                    <li>
-                        <a href="tel:+2348100428881">📞 +2348100428881 (Whatsapp)</a>
-                    </li>
-                </ul>
-            </div>
-        </header>
-
-        <nav class="navbar">
-            <div class="logo-section">
-                <img src="img/let_symbol.png" alt="LET Symbol" class="logo-symbol">
-                <img src="img/let_logo.png" alt="LET Logo" class="logo-text">
-            </div>
-
-            <form class="search-form" role="search">
-                <input type="search" name="search" id="search" placeholder="Search products..."
-                    title="Search your favorite products">
-                <button type="submit" aria-label="Search">SEARCH</button>
-            </form>
-            <ul class="nav-links">
-                <li><a href="akolo.html">HOME</a></li>
-                <li><a href="https://letinnovations.store/">LOGIN</a></li>
-            </ul>
-            <button class="mobile-menu-toggle" aria-label="Toggle menu">☰</button>
-        </nav>
-
-        <main>
-            <section class="products-section">
-                <div class="products-container">
-                    <h1 class="section-title">POPULAR HARDWARE PRODUCTS</h1>
-                    <div class="product-grid" id="product-grid"> 
+                    
+                    <div class="header-actions">
+                        <button class="action-btn" id="search-btn" aria-label="Search">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <path d="m21 21-4.35-4.35"></path>
+                            </svg>
+                        </button>
+                        <button class="action-btn" id="notifications-btn" aria-label="Notifications">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                            </svg>
+                        </button>
+                        <button class="action-btn" id="theme-toggle" aria-label="Toggle theme">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="theme-icon">
+                                <circle cx="12" cy="12" r="5"></circle>
+                                <line x1="12" y1="1" x2="12" y2="3"></line>
+                                <line x1="12" y1="21" x2="12" y2="23"></line>
+                                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                                <line x1="1" y1="12" x2="3" y2="12"></line>
+                                <line x1="21" y1="12" x2="23" y2="12"></line>
+                                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                            </svg>
+                        </button>
                     </div>
                 </div>
+            </header>
+
+            <!-- Banner Carousel -->
+            <section class="banner-section">
+                <div class="banner-carousel">
+                    <div class="banner-slide active">
+                        <img src="assets/images/tech1.jpg" alt="Sharp Deals" class="banner-image">
+                        <div class="banner-content">
+                            <h2 class="banner-title">Sharp Deals</h2>
+                            <p class="banner-subtitle">Just for You</p>
+                        </div>
+                    </div>
+                    <div class="banner-slide">
+                        <img src="assets/images/tech4.png" alt="Premium Tech" class="banner-image">
+                        <div class="banner-content">
+                            <h2 class="banner-title">Premium Tech</h2>
+                            <p class="banner-subtitle">Waiting For You</p>
+                        </div>
+                    </div>
+                    <div class="banner-slide">
+                        <img src="assets/images/elect_store.jpg" alt="Research Resources" class="banner-image">
+                        <div class="banner-content">
+                            <h2 class="banner-title">Research Resources</h2>
+                            <p class="banner-subtitle">Exclusively For You</p>
+                        </div>
+                    </div>
+                    <div class="banner-slide">
+                        <img src="assets/images/tech3.jpg" alt="Smart Devices" class="banner-image">
+                        <div class="banner-content">
+                            <h2 class="banner-title">Smart Devices</h2>
+                            <p class="banner-subtitle">With AI Available</p>
+                        </div>
+                    </div>
+                    <div class="banner-slide">
+                        <img src="assets/images/laptop.jpg" alt="Smart Tech" class="banner-image">
+                        <div class="banner-content">
+                            <h2 class="banner-title">Smart Tech</h2>
+                            <p class="banner-subtitle">For Every Day</p>
+                        </div>
+                    </div>
+                    <div class="banner-slide">
+                        <img src="assets/images/tech6.png" alt="Explore New Tech" class="banner-image">
+                        <div class="banner-content">
+                            <h2 class="banner-title">Explore New Tech</h2>
+                            <p class="banner-subtitle">Smart. Fast. Reliable</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="banner-nav prev" aria-label="Previous slide">‹</button>
+                <button class="banner-nav next" aria-label="Next slide">›</button>
+                <div class="banner-indicators"></div>
             </section>
 
-            <section class="services-section">
-                <h2>LETI Professional Services</h2>
-                <ul class="services-grid">
-                    <li><a href="https://letinnovations.store">Software Development (Web, App)</a></li>
-                    <li><a href="https://letinnovations.store">Embedded Systems - IoT & Automation</a></li>
-                    <li><a href="https://letinnovations.store">Phones and Systems Repair</a></li>
-                    <li><a href="https://letinnovations.store">Artificial Intelligence - Machine Learning</a></li>
-                    <li><a href="https://letinnovations.store">Solar and Inverter Systems Design</a></li>
-                    <li><a href="https://letinnovations.store">Co-Working Lab - Exclusive Workspace</a></li>
-                    <li><a href="https://letinnovations.store">Sales of Electronic Components</a></li>
-                    <li><a href="https://letinnovations.store">Computer Cafe Services</a></li>
-                    <li><a href="https://letinnovations.store">Other Services</a></li>
-                </ul>
-            </section>
-
-            <section class="contact-section">
-                <h2>Contact LET Innovations</h2>
-                <p>Have questions? Drop your message below — we'll reply soon!</p>
-
-                <form id="contact-form" class="contact-form">
-                    <div class="form-group">
-                        <label for="name">Name:</label>
-                        <input type="text" id="name" name="name" placeholder="Your full name" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input type="email" id="email" name="email" placeholder="Your email address" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="message">Message:</label>
-                        <textarea id="message" name="message" rows="5" placeholder="Type your message..."
-                            required></textarea>
-                    </div>
-
-                    <div id="drop-zone" class="drop-zone">
-                        <p>Drag & Drop files here or click to upload</p>
-                        <input type="file" id="file-input" multiple style="display: none;">
-                    </div>
-
-                    <button type="submit" class="submit-btn">Send Message</button>
-                </form>
-
-                <div id="contact-status" class="contact-status"></div>
-            </section>
-        </main>
-
-        <footer>
-            <div class="footer-content">
-                <div class="newsletter-section">
-                    <h3>Subscribe to Our Newsletters</h3>
-                    <p>Get email updates about our latest discount offers and new products</p>
-                    <form class="newsletter-form">
-                        <input type="email" name="subscribe" placeholder="example@email.com" required>
-                        <button type="submit">SUBSCRIBE</button>
-                    </form>
+            <!-- Items You Like Section -->
+            <section class="product-section">
+                <div class="section-header">
+                    <h2 class="section-title">Items You Like</h2>
+                    <button class="see-all-btn" data-category="popular">See All</button>
                 </div>
+                <div class="product-list" id="popular-products"></div>
+            </section>
+
+            <!-- Category Sections (dynamically generated) -->
+            <div id="category-sections"></div>
+
+            <!-- Footer -->
+            <footer class="footer">
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <h3>About Us</h3>
+                        <p>Your trusted source for innovative technology and electronics.</p>
+                    </div>
+                    <div class="footer-section">
+                        <h3>Quick Links</h3>
+                        <ul>
+                            <li><a href="#about">About</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                            <li><a href="#terms">Terms</a></li>
+                            <li><a href="#privacy">Privacy</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h3>Contact</h3>
+                        <p>Email: info@letinnovations.store</p>
+                        <p>Phone: +234 XXX XXX XXXX</p>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 Let Innovation. All rights reserved.</p>
+                </div>
+            </footer>
+        </div>
+
+        <!-- Product Modal -->
+        <div id="product-modal" class="modal">
+            <div class="modal-overlay" onclick="closeProductModal()"></div>
+            <div class="modal-content">
+                <button class="modal-close" onclick="closeProductModal()">&times;</button>
+                <div id="modal-details"></div>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 LET Innovations. All rights reserved.</p>
-            </div>
-        </footer>
+        </div>
+
+        <!-- Redirect Message -->
+        <div id="redirect-message" class="redirect-message" style="display: none;">
+            Redirecting to mobile store...
+        </div>
     </div>
 
+    <!-- Flutter Container - Hidden Initially -->
     <div id="flutter-container" style="opacity: 0; transition: opacity 0.8s ease-in-out; pointer-events: none;">
-        </div>
+        <!-- Flutter app will be loaded here -->
+    </div>
 
+    <!-- Transition Script -->
     <script>
         var serviceWorkerVersion = null;
 
-        function transitionToFlutter() {
-            const landingContainer = document.getElementById('landing-page-container');
-            const flutterContainer = document.getElementById('flutter-container');
-
-            // Check if the transition has already happened
-            if (landingContainer && landingContainer.classList.contains('fade-out')) {
-                return;
-            }
-
-            // Start fade out of landing page
-            if (landingContainer) {
-                landingContainer.classList.add('fade-out');
-            }
-            
-            // Start fade in of Flutter
-            if (flutterContainer) {
-                flutterContainer.classList.add('fade-in');
-            }
-
-            // Completely remove landing page from DOM and prevent any interaction
-            // after the transition animation is complete (0.8s)
-            setTimeout(() => {
-                if (landingContainer) {
-                    landingContainer.remove();
-                }
-                // Ensure body is clean and Flutter has full control
-                document.body.style.overflow = 'auto';
-            }, 800);
-        }
-
-        // 🚀 CRITICAL CHANGE: Start loading the Flutter engine as soon as the DOM is available.
-        window.addEventListener('DOMContentLoaded', function() {
-            // Check if _flutter.loader is available before trying to use it
-            if (typeof _flutter !== 'undefined' && _flutter.loader) {
+        function initializeFlutterTransition() {
+            // Start loading the Flutter app once the document is ready.
+            window.addEventListener('load', function (ev) {
                 _flutter.loader.loadEntrypoint({
                     serviceWorker: {
                         serviceWorkerVersion: serviceWorkerVersion,
                     },
                     onEntrypointLoaded: async function(engineInitializer) {
                         let appRunner = await engineInitializer.initializeEngine({
-                            // Force the HTML renderer to mitigate CORS issues with CanvasKit.
                             renderer: "html",
                         });
                         await appRunner.runApp();
                         
-                        // Now that Flutter is running and has rendered its first frame, transition
+                        // Now that Flutter is running, transition to it
                         transitionToFlutter();
                     }
                 });
-            } else {
-                console.error("Flutter loader not found. Check flutter_bootstrap.js path and placement.");
-            }
-        });
-        
-        // Fallback: transition after 15 seconds if Flutter doesn't load
-        // This is kept as a safety net, but should ideally not be hit.
-        setTimeout(() => {
+            });
+
+            // Fallback: transition after 15 seconds if Flutter doesn't load
+            setTimeout(() => {
+                const landingContainer = document.getElementById('landing-page-container');
+                if (landingContainer && !landingContainer.classList.contains('fade-out')) {
+                    transitionToFlutter();
+                }
+            }, 15000);
+        }
+
+        function transitionToFlutter() {
             const landingContainer = document.getElementById('landing-page-container');
-            if (landingContainer && !landingContainer.classList.contains('fade-out')) {
-                // We transition, but this might result in a blank screen if Flutter
-                // is still mid-load, so optimizing the above script is key.
-                transitionToFlutter();
-            }
-        }, 15000);
+            const flutterContainer = document.getElementById('flutter-container');
+
+            // Start fade out of landing page
+            landingContainer.classList.add('fade-out');
+            
+            // Start fade in of Flutter
+            flutterContainer.classList.add('fade-in');
+
+            // Completely remove landing page from DOM and prevent any interaction
+            setTimeout(() => {
+                landingContainer.remove();
+                document.body.style.overflow = 'auto';
+            }, 800);
+        }
+
+        // Start monitoring when page loads
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeFlutterTransition);
+        } else {
+            initializeFlutterTransition();
+        }
     </script>
 
-    <script src="flutter_bootstrap.js" defer></script>
-
+    <script src="flutter_bootstrap.js"></script>
     <script src="letinnovation.js"></script>
 </body>
 </html>
