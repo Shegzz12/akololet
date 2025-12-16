@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <base href="/">
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="IE=Edge" http-equiv="X-UA-Compatible">
@@ -37,10 +35,13 @@
     <title>LET Innovations - Electronics, Computers, Gadgets, SmartPhones, Smart Devices, IoT, Raspberry pi, Arduino, Esp32 Components in Nigeria</title>
     <link rel="manifest" href="manifest.json">
 
+    <!-- Cloudinary Upload Widget -->
     <script src="https://upload-widget.cloudinary.com/latest/global/all.js" type="text/javascript"></script>
     
+    <!-- Google Sign-In for Web -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 
+    <!-- Light Mode Styles -->
     <style>
         * {
             margin: 0;
@@ -71,27 +72,293 @@
             opacity: 0;
             transition: opacity 0.8s ease-in-out;
             pointer-events: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
         }
 
         #flutter-container.fade-in {
             opacity: 1 !important;
             pointer-events: auto;
         }
-        
-        /* ... (rest of your CSS styles) ... */
+
+        /* Header */
+        .header {
+            background-color: #f8f8f8;
+            padding: 12px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-symbol, .logo-text {
+            max-height: 50px;
+            width: auto;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            transition: color 0.3s;
+        }
+
+        .action-btn:hover {
+            color: #6b4b9f;
+        }
+
+        .theme-icon {
+            fill: currentColor;
+        }
+
+        /* Banner Carousel */
+        .banner-section {
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+
+        .banner-carousel {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .banner-slide {
+            min-width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .banner-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .banner-content {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .banner-title {
+            font-size: 24px;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+        }
+
+        .banner-subtitle {
+            font-size: 16px;
+            color: #6b4b9f;
+        }
+
+        .banner-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.8);
+            border: none;
+            border-radius: 50%;
+            padding: 8px;
+            cursor: pointer;
+        }
+
+        .banner-nav.prev {
+            left: 10px;
+        }
+
+        .banner-nav.next {
+            right: 10px;
+        }
+
+        .banner-indicators {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .banner-indicator {
+            width: 10px;
+            height: 10px;
+            background-color: #ddd;
+            border-radius: 50%;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+
+        .banner-indicator.active {
+            background-color: #6b4b9f;
+        }
+
+        /* Items You Like Section */
+        .product-section {
+            margin-bottom: 40px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            color: #1a1a1a;
+            text-align: center;
+        }
+
+        .see-all-btn {
+            padding: 10px 20px;
+            background-color: #6b4b9f;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .see-all-btn:hover {
+            background-color: #553a7d;
+        }
+
+        .product-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .product-item {
+            background: #f8f8f8;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .product-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        /* Category Sections (dynamically generated) */
+        #category-sections {
+            margin-bottom: 40px;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            padding: 40px 20px;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .footer-section {
+            flex: 1;
+        }
+
+        .footer-section h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 8px;
+        }
+
+        .footer-section ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section ul li a:hover {
+            color: #6b4b9f;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            color: #aaa;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+            }
+
+            .header-actions {
+                margin-top: 15px;
+                justify-content: center;
+            }
+
+            .banner-slide {
+                padding: 10px;
+            }
+
+            .banner-indicators {
+                margin-top: 10px;
+            }
+        }
     </style>
 
     <link rel="stylesheet" href="letinnovation.css">
 </head>
 
 <body>
+    <!-- Landing Page Container -->
     <div id="landing-page-container">
+        <!-- Splash Screen -->
         <div id="splash-screen" class="splash-screen">
             <img src="assets/images/let_symbol.png" alt="Let Innovation" class="splash-logo">
             <div class="splash-loader"></div>
         </div>
 
+        <!-- Main Content -->
         <div class="main-wrapper">
+            <!-- Header -->
             <header class="header">
                 <div class="header-content">
                     <div class="logo-section">
@@ -129,6 +396,7 @@
                 </div>
             </header>
 
+            <!-- Banner Carousel -->
             <section class="banner-section">
                 <div class="banner-carousel">
                     <div class="banner-slide active">
@@ -179,6 +447,7 @@
                 <div class="banner-indicators"></div>
             </section>
 
+            <!-- Items You Like Section -->
             <section class="product-section">
                 <div class="section-header">
                     <h2 class="section-title">Items You Like</h2>
@@ -187,8 +456,10 @@
                 <div class="product-list" id="popular-products"></div>
             </section>
 
+            <!-- Category Sections (dynamically generated) -->
             <div id="category-sections"></div>
 
+            <!-- Footer -->
             <footer class="footer">
                 <div class="footer-content">
                     <div class="footer-section">
@@ -216,6 +487,7 @@
             </footer>
         </div>
 
+        <!-- Product Modal -->
         <div id="product-modal" class="modal">
             <div class="modal-overlay" onclick="closeProductModal()"></div>
             <div class="modal-content">
@@ -224,55 +496,71 @@
             </div>
         </div>
 
+        <!-- Redirect Message -->
         <div id="redirect-message" class="redirect-message" style="display: none;">
             Redirecting to mobile store...
         </div>
     </div>
 
-    <div id="flutter-container" style="opacity: 0; transition: opacity 0.8s ease-in-out; pointer-events: none;">
-        </div>
+    <!-- Flutter Container - Hidden Initially -->
+    <div id="flutter-container">
+        <flt-glass-pane></flt-glass-pane>
+    </div>
 
+    <!-- Transition Script -->
+    <script src="flutter_bootstrap.js" async></script>
     <script>
-        // This function is called by your Dart code when all critical Flutter assets/data are loaded.
-        window.flutterAppIsReady = function() {
-            console.log("Flutter App Ready: Starting HTML transition.");
-            transitionToFlutter(); 
-        }
-    </script>
-
-    <script>
-        const serviceWorkerVersion = "1012251471";
+        var serviceWorkerVersion = null;
 
         function initializeFlutterTransition() {
-            // Use DOMContentLoaded to start loading the Flutter engine as soon as possible.
-            if (typeof _flutter !== 'undefined' && _flutter.loader) {
+            // Wait for Flutter loader to be available
+            function waitForFlutterLoader() {
+                if (typeof _flutter !== 'undefined' && _flutter.loader) {
+                    startFlutterApp();
+                } else {
+                    setTimeout(waitForFlutterLoader, 100);
+                }
+            }
+
+            function startFlutterApp() {
                 _flutter.loader.loadEntrypoint({
                     serviceWorker: {
                         serviceWorkerVersion: serviceWorkerVersion,
                     },
                     onEntrypointLoaded: async function(engineInitializer) {
-                        let appRunner = await engineInitializer.initializeEngine({
-                            renderer: "html",
-                        });
-                        await appRunner.runApp();
-                        
-                        // The transition call now relies ONLY on the window.flutterAppIsReady() 
-                        // call from the running Dart app, ensuring readiness.
+                        try {
+                            let appRunner = await engineInitializer.initializeEngine({
+                                renderer: "html",
+                            });
+                            await appRunner.runApp();
+                            
+                            // Transition after Flutter is fully loaded
+                            setTimeout(() => {
+                                transitionToFlutter();
+                            }, 1000);
+                        } catch (error) {
+                            console.error("Flutter initialization error:", error);
+                        }
                     }
                 });
-            } else {
-                console.error("Flutter loader not found. Check flutter_bootstrap.js path and placement.");
             }
 
-            // 🛑 REMOVED THE 15-SECOND TIMEOUT HERE. 
-            // The landing page will now remain indefinitely until the Dart app signals readiness.
+            waitForFlutterLoader();
+
+            // Fallback: transition after 15 seconds if Flutter doesn't load
+            setTimeout(() => {
+                const landingContainer = document.getElementById('landing-page-container');
+                if (landingContainer && !landingContainer.classList.contains('fade-out')) {
+                    console.log("Fallback: Transitioning after timeout");
+                    transitionToFlutter();
+                }
+            }, 15000);
         }
 
         function transitionToFlutter() {
             const landingContainer = document.getElementById('landing-page-container');
             const flutterContainer = document.getElementById('flutter-container');
 
-            // Check if the transition has already happened
             if (!landingContainer || landingContainer.classList.contains('fade-out')) {
                 return;
             }
@@ -283,21 +571,23 @@
             // Start fade in of Flutter
             flutterContainer.classList.add('fade-in');
 
-            // Completely remove landing page from DOM and prevent any interaction
+            // Completely remove landing page from DOM
             setTimeout(() => {
-                if (landingContainer) {
+                if (landingContainer && landingContainer.parentNode) {
                     landingContainer.remove();
                 }
                 document.body.style.overflow = 'auto';
             }, 800);
         }
 
-        // 🚀 Trigger Flutter loading as soon as the DOM is parsed
-        window.addEventListener('DOMContentLoaded', initializeFlutterTransition);
-        
+        // Start monitoring when page loads
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeFlutterTransition);
+        } else {
+            initializeFlutterTransition();
+        }
     </script>
 
-    <script src="flutter_bootstrap.js"></script>
     <script src="letinnovation.js"></script>
 </body>
 </html>
